@@ -1,0 +1,32 @@
+.public-body {
+  .birthdays {
+    .page-hero {
+      background-image: url("/birthdays.jpeg");
+    }
+    .col-sm-12 {
+      @media (min-width: 320px) and (max-width: 480px) {
+        margin-top: 20px;
+      }
+    }
+    .package {
+      .card-header {
+        font-family: "Caveat", cursive;
+        font-weight: 900;
+        font-size: 32px;
+        color: $color-1-black;
+        text-align: center;
+      }
+      .price-container {
+        text-align: center;
+        color: $color-1-black;
+        .starting-at {
+          font-weight: 200;
+        }
+        .price {
+          font-family: "Caveat", cursive;
+          font-weight: 900;
+        }
+      }
+    }
+  }
+}

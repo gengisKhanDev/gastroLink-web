@@ -1,0 +1,42 @@
+@mixin blink {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+  -moz-animation: blink 1s steps(5, start) infinite;
+  -o-animation: blink 1s steps(5, start) infinite;
+  -ms-animation: blink 1s steps(5, start) infinite;
+
+  //Generic Browser
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  //Mozilla Browser
+  @-moz-keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  //Webkit Browser
+  @-webkit-keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  //Opera Browser
+  @-o-keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  //Microsoft Browser
+  @-ms-keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+}

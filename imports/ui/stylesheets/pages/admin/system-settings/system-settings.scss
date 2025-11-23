@@ -1,0 +1,22 @@
+.admin-body {
+  .system-settings {
+    .about-us-images {
+      .about-us-image {
+        position: relative;
+      }
+      .delete-about-us-image {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: $color-1-red;
+        background-color: $color-1-white;
+        border-radius: 50%;
+        &:hover {
+          transition: 0.4s;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

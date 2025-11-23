@@ -1,0 +1,22 @@
+.user-body {
+  .user-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .image-avatar {
+      border-radius: 50%;
+      border-width: 2px;
+      border-style: solid;
+      border-color: $color-1-black;
+      height: 180px;
+      width: 180px;
+      &:hover {
+        filter: grayscale(100%);
+        transform: scale(1.05);
+      }
+    }
+  }
+  .email {
+    overflow: auto;
+  }
+}

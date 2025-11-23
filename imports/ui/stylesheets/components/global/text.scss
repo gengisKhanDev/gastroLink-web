@@ -1,0 +1,21 @@
+.text-success {
+  color: $color-1-green;
+}
+.text-danger {
+  color: $color-1-red;
+}
+
+strong {
+  color: $color-1-purple;
+  font-weight: 900;
+}
+
+a {
+  color: $color-1-purple;
+  font-weight: 900;
+  outline: none !important;
+  text-decoration: none;
+  &:hover {
+    color: $color-2-purple;
+  }
+}

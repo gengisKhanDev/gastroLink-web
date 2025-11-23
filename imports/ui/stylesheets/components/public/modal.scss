@@ -1,0 +1,17 @@
+.public-body {
+  .modal {
+    .modal-header, .modal-body, .modal-footer {
+      background-color: $color-1-black !important;
+      border-style: solid;
+      border-width: 2px;
+      border-color: $color-1-purple;
+      .btn-close {
+        background-color: $color-1-purple;
+      }
+    }
+    .modal-footer {
+      border-top-width: 1px;
+      border-top-color: $color-1-purple !important;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<template name="user_my_account">
+  <div class="user-my-account">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center fw-bolder"><a href="/">My Account</a></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <form id="myAccount">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                  <label for="firstName">First Name:</label>
+                  <input type="text" class="form-control" id="firstName"
+                    placeholder="First Name" value="{{user.profile.firstName}}" autocomplete="off" required>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                  <label for="lastName">Last Name:</label>
+                  <input type="text" class="form-control" id="lastName"
+                    placeholder="Last Name" value="{{user.profile.lastName}}" autocomplete="off" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="firstName">Email:</label>
+                  <h4 >{{user.emails.[0].address}}</h4>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="firstName">Date of Birth:</label>
+                  <h4>
+                    {{formatDateView user.profile.dob}}
+                  </h4>
+      
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 mt-4">
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary btn-block" id="editUserBtn">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</template>

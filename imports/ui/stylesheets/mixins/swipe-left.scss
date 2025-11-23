@@ -1,0 +1,43 @@
+@mixin swipe-left {
+  animation: swipeLeft 0.5s forwards;
+  -webkit-animation: swipeLeft 0.5s forwards;
+  -moz-animation: swipeLeft 0.5s forwards;
+  -o-animation: swipeLeft 0.5s forwards;
+  -ms-animation: swipeLeft 0.5s forwards;
+  -ms-animation: swipeLeft 0.5s forwards;
+
+  //Generic Browser
+  @keyframes swipeLeft {
+    100% {
+      left: 0;
+    }
+  }
+
+  //Webkit Browser
+  @-webkit-keyframes swipeLeft {
+    100% {
+      left: 0;
+    }
+  }
+
+  //Mozilla Browser
+  @-moz-keyframes swipeLeft {
+    100% {
+      left: 0;
+    }
+  }
+
+  //Opera Browser
+  @-o-keyframes swipeLeft {
+    100% {
+      left: 0;
+    }
+  }
+
+  //Microsoft Browser
+  @-ms-keyframes swipeLeft {
+    100% {
+      left: 0;
+    }
+  }
+}

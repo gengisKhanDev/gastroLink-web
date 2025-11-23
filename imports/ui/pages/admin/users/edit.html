@@ -1,0 +1,49 @@
+<template name="admin_users_edit">
+  {{#if Template.subscriptionsReady}}
+    <div class="container-fluid container-white">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-c enter fw-bolder">View User</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" minlength="3" class="form-control format-name"
+              id="firstName" placeholder="Enter Name" autocomplete="off"
+              value="{{thisUser.profile.firstName}} {{thisUser.profile.lastName}}">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" minlength="3" class="form-control format-name"
+              id="lastName" placeholder="Enter Name" autocomplete="off"
+              value="{{thisUser.profile.lastName}}">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label for="dob">DOB</label>
+            <input type="date" class="form-control" id="dob">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input type="text" class="form-control"
+              placeholder="Enter Role" autocomplete="off"
+              value="{{thisUser.profile.role.name}}">
+          </div>
+        </div>
+      </div>
+    </div>
+  {{else}}
+    {{> loader}}
+  {{/if}}
+</template>

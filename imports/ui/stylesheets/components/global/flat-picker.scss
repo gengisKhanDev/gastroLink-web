@@ -1,0 +1,96 @@
+/*Flat-Picker CSS*/
+.flatpickr-input {
+  background-color: $color-1-white;
+}
+
+.flatpickr-months .flatpickr-month {
+  border-radius: 0px !important;
+}
+
+.flatpickr-day {
+  border-radius: 0px !important;
+  color: $color-1-white !important;
+  &:hover {
+    background-color: $color-1-purple !important;
+    color: $color-1-white !important;
+  }
+}
+
+.flatpickr-day.flatpickr-disabled{
+  opacity: 0.5;
+}
+
+.flatpickr-day.prevMonthDay {
+  opacity: 0.5;
+}
+.flatpickr-day.nextMonthDay {
+  opacity: 0.5;
+}
+
+.flatpickr-monthDropdown-months {
+  background: $color-1-purple !important;
+}
+.flatpickr-innerContainer {
+  background: #000 !important;
+}
+.flatpickr-calendar {
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: $color-1-purple !important;
+}
+
+.flatpickr-calendar.arrowTop:after {
+  border-bottom-color: $color-1-purple !important;
+}
+.flatpickr-months .flatpickr-month {
+  background: $color-1-purple !important;
+  height: 38px !important;
+  border-radius: 0px;
+}
+.flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)),
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
+.flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)) {
+  box-shadow: -10px 0 0 $color-1-purple !important;
+}
+.flatpickr-days {
+  background-color: $color-1-black !important;
+}
+
+.flatpickr-weekdays {
+  background: $color-1-purple !important;
+  span {
+    background: $color-1-purple !important;
+    color: $color-1-white !important;
+  }
+}
+.flatpickr-calendar.arrowBottom:before {
+  border-top-color: $color-1-purple !important;
+}
+.flatpickr-calendar.arrowBottom:after {
+  border-top-color: $color-1-purple !important;
+}
+
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+  fill: $color-1-white !important;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: $color-1-purple !important;
+}
+.flatpickr-months .flatpickr-prev-month svg:hover,
+.flatpickr-next-month svg:hover {
+  fill: $color-1-green !important;
+  // background: white !important;
+}
+.flatpickr-day.selected {
+  background: $color-1-purple !important;
+  border-color: $color-1-purple !important;
+}
+.flatpickr-day.startRange {
+  background: $color-1-purple !important;
+  border-color: $color-1-purple !important;
+}
+.flatpickr-day.endRange {
+  background: $color-1-purple !important;
+  border-color: $color-1-purple !important;
+}

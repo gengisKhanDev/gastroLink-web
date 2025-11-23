@@ -1,0 +1,63 @@
+.fc-button {
+  background-color: $color-1-purple !important;
+  border-color: $color-1-purple !important;
+  border-radius: 0px !important;
+}
+
+.fc-col-header-cell-cushion {
+  color: $color-1-purple !important;
+}
+
+.fc-daygrid-day-number {
+  color: $color-1-purple !important;
+}
+
+.fc-daygrid-event {
+  border-radius: 0px !important;
+}
+
+.fc-event-title-container {
+  background-color: $color-1-purple !important;
+  border-color: $color-1-purple !important;
+  .fc-sticky {
+    color: $color-1-white !important;
+  }
+}
+
+.fc-day-today {
+  background-color: $color-1-purple !important;
+  .fc-daygrid-day-top {
+    .fc-daygrid-day-number {
+      color: $color-1-white !important;
+    }
+  }
+}
+.fc-daygrid-event-dot {
+  border-color: $color-1-purple !important;
+  background-color: $color-1-purple !important;
+  border-radius: 0px !important;
+  width: 6px !important;
+  height: 6px !important;
+}
+.fc-event-time {
+  color: $color-1-purple !important;
+}
+.fc-event-today .fc-daygrid-event-dot {
+  border-color: $color-1-white !important;
+}
+
+.fc-event-today .fc-event-time {
+  color: $color-1-white !important;
+}
+
+.fc-event-today .fc-event-title {
+  color: $color-1-white !important;
+}
+
+.fc-event-title {
+  color: $color-1-purple !important;
+}
+
+.fc-more-link {
+  color: $color-1-purple !important;
+}

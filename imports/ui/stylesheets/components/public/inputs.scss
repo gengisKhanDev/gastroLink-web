@@ -1,0 +1,27 @@
+.public-body {
+  .form-group {
+    input {
+      border-style: solid;
+      border-width: 2px;
+      border-color: $color-1-purple;
+    }
+    textarea {
+      border-style: solid;
+      border-width: 2px;
+      border-color: $color-1-purple;
+    }
+  }
+
+  ::placeholder {
+    color: $color-1-purple;
+    opacity: 1;
+  }
+
+  :-ms-input-placeholder {
+    color: $color-1-purple;
+  }
+
+  ::-ms-input-placeholder {
+    color: $color-1-purple;
+  }
+}

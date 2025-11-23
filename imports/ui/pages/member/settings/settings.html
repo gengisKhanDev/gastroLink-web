@@ -1,0 +1,279 @@
+<template name="member_settings">
+  <div class="dashboard">
+    <div class="container-fluid">
+
+      <h4><a href="/">dashboard member</a></h4>
+      <div class="row">
+        <div class="col-12">
+          <div class="accordion" id="verticalTabs">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Business Info
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#verticalTabs">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="my-2">
+                        <form id="updateBusinessInfo">
+                          <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                              <div class="form-group">
+                                <label for="name">Business Name*</label>
+                                <input type="text" class="form-control format-name" id="name" value="{{aboutUsImages.businessName}}" placeholder="Name"
+                                  required>
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                              <div class="form-group">
+                                <label for="address">Address*</label>
+                                <input type="text" class="form-control" id="address" value="{{aboutUsImages.businessAddress.formatted_address}}" placeholder="Address" required>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                              <div class="form-group">
+                                <label for="phoneNumber">Phone Number*</label>
+                                <input type="text" class="form-control format-phone" id="phoneNumber" value="{{aboutUsImages.phoneNumber}}"
+                                  placeholder="Phone Number" required>
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                              <div class="form-group">
+                                <label for="email">Email*</label>
+                                <input type="email" class="form-control" id="email" value="{{aboutUsImages.businessEmail}}" placeholder="Email" required>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="maxCapacity">Max Capacity*</label>
+                                <input type="number" class="form-control" id="maxCapacity" value="{{aboutUsImages.maxCapacity}}" placeholder="Enter Max Capacity For Your Business" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="description" class="form-label">Description</label>
+                              <textarea class="form-control" id="description" rows="2" value="{{aboutUsImages.description}}" placeholder="Escribe aquí..."
+                                maxlength="120"></textarea>
+                              <div class="mt-2">
+                                <span id="charCount">{{aboutUsImages.description.length}}</span> / 120 caracteres
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="d-grid">
+                                <button type="submit" class="btn btn-primary
+                                        btn-block mt-4">
+                                  <i class="fas fa-edit"></i> Update
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Social Media URLs
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#verticalTabs">
+                <div class="accordion-body">
+                  <div class="my-2">
+                    <form id="socialMedia">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="facebook">Facebook</label>
+                            <input type="url" class="form-control" id="facebook" placeholder="Facebook">
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="twitter">Twitter</label>
+                            <input type="url" class="form-control" id="twitter" placeholder="Twitter">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="google">Google</label>
+                            <input type="url" class="form-control" id="google" placeholder="Google">
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="instagram">Instagram</label>
+                            <input type="url" class="form-control" id="instagram" placeholder="Instagram">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="tiktok">Tiktok</label>
+                            <input type="url" class="form-control" id="tiktok" placeholder="Tiktok">
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                          <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block mt-4">
+                              <i class="fas fa-edit"></i> Update
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Opening Hours
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#verticalTabs">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="form-group">
+                          <h4>Days</h4>
+                          {{#each dialysisDay in dialysisDays}}
+                          <div class="row">
+                            <div class="col-6">
+                              <label for="">{{dialysisDay.day}}</label>
+                            </div>
+                            <div class="col-6">
+                              <label class="switch">
+                                <input type="checkbox" class="dialysis-day" data-index="{{@index}}"
+                                  data-id="{{dialysisDay.day}}" checked="{{dialysisDay.enabled}}">
+                                <span class="slider"></span>
+                              </label>
+                            </div>
+                          </div>
+
+
+                          {{#if dialysisDay.enabled}}
+                          <div class="form-group">
+                            <label for="startTime">Start Time</label>
+                            <input type="time" class="form-control start-time" data-id="{{dialysisDay.day}}"
+                              value="{{dialysisDay.startTime}}" autocomplete="off" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="endTime">End Time</label>
+                            <input type="time" class="form-control end-time" data-id="{{dialysisDay.day}}"
+                              value="{{dialysisDay.endTime}}" autocomplete="off" required>
+                          </div>
+                          {{else}}
+                          <br>
+                          <hr>
+                          {{/if}}
+                          {{/each}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Banner
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                data-bs-parent="#verticalTabs">
+                <div class="accordion-body">
+
+                  <div class="my-2"><br>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="drop-zone" id="aboutUsImage">
+                          <input type="file" accept="image/*" class="file">
+                          <h4 class="text">Drag & Drop Image</h4>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row about-us-images">
+                      {{#if $mapped aboutUsImages.images}}
+                      {{#each aboutUsImage in aboutUsImages.images}}
+                      <div class="col-sm-12 col-md-4 animate__animated
+                              animate__fadeInLeft my-4 about-us-image">
+                        <img class="img-fluid" src="{{aboutUsImage.base64}}" alt="{{aboutUsImage.name}}">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary image-set-default" data-id="{{aboutUsImage.id}}">
+                            <i class="fas fa-eye" data-id="{{aboutUsImage.id}}"></i> Set Default
+                          </button>
+                          <button type="button" class="btn btn-danger delete-image" data-id="{{aboutUsImage.id}}">
+                            <i class="fas fa-trash" data-id="{{aboutUsImage.id}}"></i> Delete
+                          </button>
+                        </div>
+                      </div>
+                      {{/each}}
+                      {{else}}
+                      <div class="col-12 my-4">
+                        <h4 class="text-center">No Images</h4>
+                      </div>
+                      {{/if}}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                  Promotion
+                </button>
+              </h2>
+              <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                data-bs-parent="#verticalTabs">
+                <div class="accordion-body">
+                  Contenido de la Tab 5.
+                </div>
+              </div>
+            </div>
+            <!-- Puedes agregar más items según lo necesites... -->
+          </div>
+
+
+          <!-- <div class="drop-zone" id="aboutUsImage">
+            <input type="file" accept="image/*" class="file">
+            <h4 class="text">Drag & Drop Image</h4>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

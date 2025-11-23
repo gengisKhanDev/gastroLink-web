@@ -1,0 +1,71 @@
+.global-body {
+  .apply {
+    .step {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border-style: solid;
+      border-width: 2px;
+      border-color: $color-2-grey;
+      background-color: $color-1-white;
+      color: $color-1-grey;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin: auto;
+      line-height: 48px;
+      &.active {
+        border-color: $color-1-yellow !important;
+      }
+    }
+    .employee {
+      position: relative;
+      width: 100%;
+      min-height: 120px;
+      height: auto;
+      border-radius: 5px;
+      border-width: 2px;
+      border-color: $color-2-grey;
+      border-style: solid;
+      padding: 10px;
+      .name {
+        display: block;
+        font-weight: 700;
+        top: 10px;
+        left: 0px;
+      }
+      .position {
+        display: block;
+        font-weight: 200;
+        left: 0px;
+        top: 22px;
+      }
+      .dates {
+        display: block;
+        font-weight: 200;
+        left: 0px;
+        top: 32px;
+      }
+      .employerName {
+        margin-top: 10px;
+        display: block;
+        font-weight: 700;
+        left: 0px;
+        top: 38px;
+      }
+      .employerPhone {
+        display: block;
+        left: 0px;
+        top: 44px;
+      }
+      .reasonLeaving {
+        margin-top: 10px;
+        display: block;
+        font-weight: 700;
+        word-break: break-all;
+        left: 0px;
+        top: 54px;
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+/*Yolo Alert*/
+.yolo-alert {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  color: $color-1-white;
+  background-color: $color-1-black;
+  width: 25%;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $color-1-purple;
+  z-index: 9999999999;
+  animation: 4s slide-left;
+
+  & .close-btn {
+    float: right;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      color: $color-1-red;
+    }
+  }
+
+  & .text {
+    width: 80%;
+    float: left;
+    display: inline-block;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    vertical-align: middle;
+  }
+}
+
+.yolo-alert.success {
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-left-color: #6B8E23;
+}
+.yolo-alert.error {
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-left-color: #8B0000;
+}
+.yolo-alert.warning {
+  font-weight: 900;
+  border-left-style: solid;
+  border-left-width: 10px;
+  border-left-color: $color-1-yellow;
+}
+.yolo-alert.info {
+  color: $color-1-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  .yolo-alert{
+    width: 60%;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    margin-left: 100%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}

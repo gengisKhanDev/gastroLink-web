@@ -1,0 +1,217 @@
+/*Main CSS File*/
+/*Variables*/
+@import "./variables.scss";
+
+//Font
+@import "./fonts.scss";
+
+/*Mixins*/
+@import "./mixins/fade-in.scss";
+@import "./mixins/breathing.scss";
+@import "./mixins/pop-in.scss";
+@import "./mixins/swipe-left.scss";
+@import "./mixins/box-shadow.scss";
+@import "./mixins/scale-up.scss";
+@import "./mixins/blink.scss";
+
+/*Layout*/
+//Desktop
+@import "./layouts/admin.scss";
+//User
+@import "./layouts/user.scss";
+//Public
+@import "./layouts/public.scss";
+//Global
+@import "./layouts/global.scss";
+
+/*Pages*/
+//Global
+@import "./pages/global/login.scss";
+@import "./pages/global/sign-up.scss";
+@import "./pages/global/not-found.scss";
+@import "./pages/global/not-authorized.scss";
+@import "./pages/global/forgot-password.scss";
+@import "./pages/global/sign-in.scss";
+@import "./pages/global/apply.scss";
+//Desktop
+@import "./pages/admin/dashboard/dashboard.scss";
+@import "./pages/admin/my-account/my-account.scss";
+@import "./pages/admin/system-settings/system-settings.scss";
+@import "./pages/admin/events/edit.scss";
+
+//User
+@import "./pages/user/my-account/my-account.scss";
+@import "./pages/user/reservations/new.scss";
+@import "./pages/user/reservations/reservations.scss";
+
+//Public
+@import "./pages/public/home.scss";
+@import "./pages/public/game.scss";
+@import "./pages/public/oculus.scss";
+@import "./pages/public/pod-rental.scss";
+@import "./pages/public/birthdays.scss";
+@import "./pages/public/contact-us.scss";
+@import "./pages/public/about-us.scss";
+@import "./pages/public/event.scss";
+@import "./pages/public/packages.scss";
+
+/*Components*/
+//Global
+@import "./components/global/offline-alert.scss";
+@import "./components/global/drop-zone.scss";
+@import "./components/global/flat-picker.scss";
+@import "./components/global/scroll-bar.scss";
+@import "./components/global/select-2.scss";
+@import "./components/global/checkbox.scss";
+@import "./components/global/toggle.scss";
+@import "./components/global/reactive-table.scss";
+@import "./components/global/selection.scss";
+
+@import "./components/global/inputs.scss";
+@import "./components/global/text.scss";
+@import "./components/global/buttons.scss";
+@import "./components/global/badges.scss";
+@import "./components/global/alerts.scss";
+
+@import "./components/global/yolo-alert.scss";
+@import "./components/global/sour-alert.scss";
+@import "./components/global/loader.scss";
+@import "./components/global/enroll.scss";
+@import "./components/global/reset-password.scss";
+
+//Desktop
+@import "./components/admin/navbar.scss";
+@import "./components/admin/sidebar.scss";
+//User
+@import "./components/user/sidebar.scss";
+//Member
+@import "./components/member/sidebar.scss";
+//Public
+@import "./components/public/navbar.scss";
+@import "./components/public/footer.scss";
+@import "./components/public/inputs.scss";
+@import "./components/public/modal.scss";
+
+@import "./components/public/page-title.scss";
+
+:root {
+  --input-padding-x: .75rem;
+  --input-padding-y: .75rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  // box-sizing: border-box;
+  min-height: 0;
+  min-width: 0;
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+  width: 100%;
+  overscroll-behavior-y: contain !important;
+  background: rgb(217,216,215);
+  background: linear-gradient(77deg, rgba(217,216,215,1) 0%, rgb(216, 196, 170) 20%, rgb(183, 166, 152) 50%, rgba(216, 196, 170,1) 80%, rgba(217,216,215,1) 100%);
+  /*Smooth Scroll (Phones)*/
+  -webkit-overflow-scrolling: touch;
+
+  caret-color: $color-1-purple;
+}
+
+.no-js {
+  color: $color-1-red;
+  text-align: center;
+  position: absolute;;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.map-wrapper {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  .map {
+    width: 100%;
+    height: 200px;
+    border: none;
+    @media (min-width: 320px) and (max-width: 480px) {
+      height: 200px !important;
+    }
+  }
+}
+
+.container-white {
+  background-color: $color-1-white;
+  width: 98%;
+  height: auto;
+  margin-top: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $color-1-purple;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.ql-toolbar {
+  border-radius: 0px !important;
+}
+
+.ql-editor {
+  height: 200px !important;
+}
+
+
+.rate {
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ffffff;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #fbff00;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #fbff00;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #ffc700;
+}
+
+.full-star {
+  color: #ffc700 !important; /* Color para las estrellas llenas */
+}
+
+// .half-star:before {
+//   content: "\\2605\\2606" !important; /* Código Unicode para estrella completa seguida de estrella vacía */
+//   /* Asegúrate de aplicar estilos que muestren correctamente la media estrella */
+// }
+
+.empty-star {
+  color: #ccc !important;
+}
+
+

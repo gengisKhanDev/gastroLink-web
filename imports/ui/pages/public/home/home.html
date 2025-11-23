@@ -1,0 +1,56 @@
+<template name="public_home">
+
+  <div class="home">
+    <div class="container-fluid">
+
+      <div class="cream-bg">
+        {{#if $mapped business}}
+        {{#each bussines in business}}
+        <div class="container">
+          <div class="row g-5 justify-content-evenly">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="row g-0">
+                  <div class="col-6 col-md-5">
+                    {{#if bussines.defaultImageSrc}}
+                    <img src="{{bussines.defaultImageSrc}}" alt="coffee shop" class="card-img img-fluid rounded-start">
+                    {{else}}
+                    <img src="/no-image-available.png" alt="coffee shop" class="card-img img-fluid rounded-start">
+                    {{/if}}
+                  </div>
+                  <div class="col-6 col-md-7">
+                    <div class="card-body d-flex flex-column">
+                      <div class="h-100">
+                        {{#if bussines.averageStars}}
+                        <div class="star-rating">
+                          {{{starsHtml bussines}}}
+                          <span>({{bussines.totalReviews}})</span>
+                          <span>({{bussines.averageStars}})</span>
+                        </div>
+                      {{/if}}
+                        <h2 class="card-title">{{bussines.businessName}}</h2>
+                        <p class="card-text">{{bussines.description}}</p>
+                        <h4><a href="{{bussines.businessAddress.url}}"><i class="fas fa-map-marker-alt"></i> {{bussines.businessAddress.formatted_address}}</a></h4>
+                        <h4><a href="tel:{{bussines.phoneNumber}}"><i class="fas fa-phone"></i> {{bussines.phoneNumber}}</a></h4>
+                        <!-- <h4 class="card-title mb-3">$ <strong>79</strong> </h4> -->
+                      </div>
+                      <div>
+                        <a href="/business/{{bussines._id}}" class="btn btn-dark botontest" >
+                         Enter For Watch Business</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      {{else}}
+      <h1>No Business</h1>
+      {{/if}}
+      </div>
+
+    </div>
+  </div>
+</template>

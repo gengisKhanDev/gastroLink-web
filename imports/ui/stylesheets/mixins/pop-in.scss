@@ -1,0 +1,64 @@
+@mixin popIn {
+  animation: popIn 0.8s;
+  -webkit-animation: popIn 0.8s;
+  -moz-animation: popIn 0.8s;
+  -o-animation: popIn 0.8s;
+  -ms-animation: popIn 0.8s;
+
+  //Generic Browser
+  @keyframes popIn{
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  //Mozilla Browser
+  @-moz-keyframes breathing {
+    0% {
+      opacity: 0;
+      -moz-transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      -moz-transform: scale(1);
+    }
+  }
+
+  //Webkit Browser
+  @-webkit-keyframes breathing {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(0.5); }
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+    }
+  }
+
+  //Opera Browser
+  @-o-keyframes breathing {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(0.5); }
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+    }
+  }
+
+  //Microsoft Browser
+  @-ms-keyframes breathing {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale(0.5); }
+    100% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+    }
+  }
+}

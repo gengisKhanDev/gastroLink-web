@@ -1,0 +1,27 @@
+.form-group {
+  label {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+  input {
+    border-color: $color-1-black;
+  }
+  .form-control {
+    &:focus {
+      border-color: $color-1-black !important;
+      background-color: $color-2-white !important;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+    &:disabled {
+      background-color: $color-1-grey !important;
+    }
+    &:read-only {
+      background-color: $color-1-white;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+}

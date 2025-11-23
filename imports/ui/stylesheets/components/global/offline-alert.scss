@@ -1,0 +1,25 @@
+.offline-alert {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 10px;
+  z-index: 99999;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  color: $color-1-white;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $color-1-purple;
+  background-color: $color-1-black;
+  @include blink;
+  .text {
+    margin: auto;
+    padding: 4px;
+    .fa-exclamation-triangle {
+      padding: 2px;
+      color: $color-2-red;
+    }
+  }
+}

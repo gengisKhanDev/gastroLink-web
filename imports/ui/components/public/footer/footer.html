@@ -1,0 +1,121 @@
+<template name="public_footer">
+  <footer class="footer">
+    <div class="container">
+      <div class="general-link py-5">
+        <div class="row">
+          {{#if companyInfo}}
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-general-link">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="text">
+                  <h4 class="title raleway">Find us</h4>
+                  <span class="general-link">
+                    <a href="{{companyInfo.address.url}}">{{companyInfo.address.formatted_address}}</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-general-link">
+                <i class="fas fa-phone"></i>
+                <div class="text">
+                  <h4 class="title raleway">Call us</h4>
+                  <span class="general-link">
+                    <a href="tel:{{companyInfo.phoneNumber}}">{{companyInfo.phoneNumber}}</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-general-link">
+                <i class="far fa-envelope-open"></i>
+                <div class="text">
+                  <h4 class="title raleway">Mail us</h4>
+                  <span class="general-link">
+                    <a href="mailto:{{companyInfo.email}}">{{companyInfo.email}}</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="content py-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 mb-50">
+            <div class="widget">
+              <div class="logo">
+                <img src="/logo-GastroLink.jpeg" class="img-fluid img" alt="logo"
+                  width="150" height="auto">
+              </div>
+              <p class="footer-text">Are you a food lover or a restaurant looking to grow? Join us and discover or be discovered in the best culinary showcase.</p>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+            <div class="widget">
+              <h3 class="heading raleway">Useful links</h3>
+              <ul class="list">
+                <li class="item">
+                  <a href="/" class="scroll-top">Home</a>
+                </li>
+                <li class="item">
+                  <a href="/about-us" class="scroll-top">About us</a>
+                </li>
+                <li class="item">
+                  <a href="/contact-us" class="scroll-top">Contact Us</a>
+                </li>
+                <!-- <li class="item">
+                  <a href="/terms-and-conditions" class="scroll-top">Terms & Conditions</a>
+                </li> -->
+                <!-- <li class="item">
+                  <a href="/privacy-policy" class="scroll-top">Privacy Policy</a>
+                </li> -->
+                <li class="item">
+                  <a href="/login" class="scroll-top">LOGIN</a>
+                </li>
+                <li class="item">
+                  <a href="/sign-up" class="scroll-top">SIGN UP</a>
+                </li>
+                <!-- <li class="item">
+                  <a href="/gift-cards/buy" class="scroll-top">GIFT CARDS</a>
+                </li> -->
+                <!-- <li class="item">
+                  <a href="/waiver" class="scroll-top">WAIVER</a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          {{#if socialMedia}}
+            <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+              <div class="widget">
+                <h3 class="heading">Follow us</h3>
+                <div class="social-icons">
+                  <a href="{{socialMedia.facebook}}" target="_blank" class="link">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="{{socialMedia.twitter}}" target="_blank" class="link">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="{{socialMedia.google}}" target="_blank" class="link">
+                    <i class="fab fa-google"></i>
+                  </a>
+                  <a href="{{socialMedia.instagram}}" target="_blank" class="link">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a href="{{socialMedia.tiktok}}" target="_blank" class="link">
+                    <i class="fab fa-tiktok"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 text-center text-lg-left py-4 px-4">
+        <div class="copyright-text">
+          <span>© {{companyInfo.name}} {{currentYear}}. All Rights Reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</template>

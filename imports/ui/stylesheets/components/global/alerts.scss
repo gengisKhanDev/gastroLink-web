@@ -1,0 +1,25 @@
+.alert {
+  border-radius: 0px !important;
+  color: $color-2-white;
+  text-align: center;
+  padding: 10px;
+  &.alert-success {
+    background-color: $color-1-green;
+  }
+
+  &.alert-primary {
+    background-color: $color-1-blue;
+  }
+
+  &.alert-info {
+    background-color: $color-1-blue;
+  }
+
+  &.alert-warning {
+    background-color: $color-1-yellow;
+  }
+
+  &.alert-danger {
+    background-color: $color-1-red;
+  }
+}
