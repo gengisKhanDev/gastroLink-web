@@ -1,10 +1,19 @@
-import './users.html';
+// imports/ui/pages/admin/users/users.js
+import "./users.html";
+import { ReactiveVar } from "meteor/reactive-var";
+import { Tracker } from "meteor/tracker";
+import { Users } from "../../../../api/users/users.js"; // ajusta el path
+// asumo que formatDate y checkUserRole están en helpers globales
 
 Template.admin_users.onCreated(function () {
-	document.title = 'Gastrolink - Users';
+	document.title = "Gastrolink - Users";
 	this.isSubscriptionReady = new ReactiveVar(false);
-	Tracker.autorun(() => {
-		checkUserRole(['Super Admin', 'Admin', 'Employee']);
+
+	this.autorun(() => {
+		checkUserRole(["Super Admin", "Admin", "Employee"]);
+
+		const handle = Meteor.subscribe("users.adminList");
+		this.isSubscriptionReady.set(handle.ready());
 	});
 });
 
@@ -13,53 +22,17 @@ Template.admin_users.helpers({
 		return Template.instance().isSubscriptionReady.get();
 	},
 	users() {
-		return {
-			collection: 'users',
-			rowsPerPage: 25,
-			showFilter: true,
-			ready: Template.instance().isSubscriptionReady,
-			fields: [
-				{
-					key: '_id',
-					label: 'id',
-					hidden: true,
-				},
-				{
-					key: 'profile',
-					label: 'Name',
-					fn: function (profile) {
-						return `${profile.firstName} ${profile.lastName}`;
-					},
-				},
-				{
-					key: 'profile',
-					label: 'Role',
-					fn: function (profile) {
-						return `${profile.role.name}`;
-					},
-				},
-				{
-					key: 'createdAt',
-					label: 'Date Created',
-					fn: function (date) {
-						return formatDate(date, true);
-					},
-				},
-				{
-					key: '_id',
-					label: 'View',
-					fn: function (id) {
-						return new Spacebars.SafeString(`
-              <div class="btn-group">
-                <a href="/admin/users/${id}" role="button" class="btn btn-primary">
-                  <i class="fas fa-eye"></i> View
-                </a>
-            `);
-					},
-				},
-			],
-		};
+		return Users.find({}, { sort: { createdAt: -1 } }).fetch();
 	},
+	fullName() {
+		const profile = this.profile || {};
+		return `${profile.firstName || ""} ${profile.lastName || ""}`.trim();
+	},
+	roleName() {
+		return this.profile?.role?.name || "";
+	},
+	// Sólo si no tienes un helper global para esto:
+	// formatDate(date, withTime) { return formatDate(date, withTime); }
 });
 
 Template.admin_users.events({});

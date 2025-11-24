@@ -22,6 +22,7 @@ import './helpers/field-exists.js';
 import './helpers/check-user-role.js';
 import './helpers/is-mobile.js';
 import './helpers/drop-zone.js';
+import '/imports/ui/helpers/logicHelpers';
 
 //Format
 import './format/format-money.js';

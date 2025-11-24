@@ -7,7 +7,28 @@
 		</div>
 
 		<div class="row">
-			<div class="col-12 table-responsive">{{> reactiveTable settings=reservations}}</div>
+			<div class="col-12 table-responsive">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Time</th>
+							<th>Party Size</th>
+							<th>Created At</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each reservations}}
+						<tr>
+							<td>{{formatDateView reservedDate}}</td>
+							<td>{{startTime}}</td>
+							<td>{{partySize}}</td>
+							<td>{{formatDate createdAt}}</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>

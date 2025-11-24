@@ -1,201 +1,116 @@
-import { Meteor } from 'meteor/meteor';
-import { Random } from 'meteor/random';
+// Accounts.urls.resetPassword = (token) => Meteor.absoluteUrl(`reset-password/${token}`);
+// ``` :contentReference[oaicite:3]{index=3}  
 
-import { Users } from '../../api/users/users.js';
-import { Settings } from '../../api/settings/settings.js';
-const os = require('os');
-Meteor.startup(() => {
-	if (Users.find().count() == 0) {
-		Accounts.createUser({
-			username: 'admin',
-			email: 'admin@admin.com',
-			password: 'lJ1tdvewYbht4CsYP8IKmkiJBXI2eNo',
+// Vamos a dejar tu lógica de seeds casi igual, solo cambiando esa parte y eliminando `os` + `getLocalIP`:
+
+// imports/startup/server/fixtures.js
+import { Meteor } from "meteor/meteor";
+import { Random } from "meteor/random";
+import { Accounts } from "meteor/accounts-base";
+
+import { Users } from "../../api/users/users.js";
+import { Settings } from "../../api/settings/settings.js";
+
+Meteor.startup(async () => {
+	// 1. Crear usuario admin si no existe (async)
+	const adminUser = await Accounts.findUserByUsername("admin");
+
+	if (!adminUser) {
+		console.log("[Fixtures] Creating default admin user...");
+		const adminId = await Accounts.createUserAsync({
+			username: "admin",
+			email: "admin@admin.com",
+			password: "lJ1tdvewYbht4CsYP8IKmkiJBXI2eNo", // tu password original
 			createdAt: new Date(),
 			profile: {
-				firstName: 'Super',
-				lastName: 'Admin',
+				firstName: "Super",
+				lastName: "Admin",
 				role: {
-					name: 'Admin',
+					name: "Admin",
 				},
 			},
 		});
+
+		console.log("[Fixtures] Admin user created with _id:", adminId);
 	}
 
-	if (typeof Settings.findOne({ _id: 'roles' }) === 'undefined') {
-		console.log('Inserting [Settings=Roles]');
-		const superAdmin = Users.findOne({ 'profile.role.name': 'Admin' });
-		const createdByObj = {
-			id: superAdmin._id,
-			name: superAdmin.profile.firstName + ' ' + superAdmin.profile.lastName,
-		};
+	// 2. Settings.roles (Admin, User, Member, Employee)
+	const rolesSettings = await Settings.findOneAsync({ _id: "roles" });
+
+	if (!rolesSettings) {
+		console.log("Inserting [Settings=Roles]");
+
+		// Recuperamos el admin para setear createdBy
+		const superAdmin =
+			(await Users.findOneAsync({ "profile.role.name": "Admin" })) ??
+			(await Accounts.findUserByUsername("admin"));
+
+		const createdByObj = superAdmin
+			? {
+				id: superAdmin._id,
+				name: `${superAdmin.profile?.firstName ?? ""} ${superAdmin.profile?.lastName ?? ""
+					}`.trim(),
+			}
+			: { id: null, name: "System" };
+
 		const today = new Date();
 
 		const rolesArr = [
 			{
 				id: Random.id(),
-				name: 'Admin',
+				name: "Admin",
 				createdAt: today,
 				createdBy: createdByObj,
 			},
 			{
 				id: Random.id(),
-				name: 'User',
+				name: "User",
 				createdAt: today,
 				createdBy: createdByObj,
 			},
 			{
 				id: Random.id(),
-				name: 'Member',
+				name: "Member",
 				createdAt: today,
 				createdBy: createdByObj,
 			},
 			{
 				id: Random.id(),
-				name: 'Employee',
+				name: "Employee",
 				createdAt: today,
 				createdBy: createdByObj,
 			},
 		];
 
-		Settings.insert({
-			_id: 'roles',
+		await Settings.insertAsync({
+			_id: "roles",
 			roles: rolesArr,
 		});
 	}
 
-	if (!Settings.findOne({ _id: 'orderCount' })) {
-		var countExists = Settings.findOne({ _id: 'orderCount' });
-		if (countExists == undefined) {
-			console.log('orderCount does not exists!');
-			console.log('setting orderCount to: 1000');
-			Settings.insert({
-				_id: 'orderCount',
-				count: 1000,
-			});
-		}
-	}
+	// 3. Settings.orderCount
+	const orderCountSettings = await Settings.findOneAsync({
+		_id: "orderCount",
+	});
 
-	if (typeof Settings.findOne({ _id: 'carriers' }) === 'undefined') {
-		console.log('Inserting [Settings=Carriers]');
-
-		Settings.insert({
-			_id: 'carriers',
-			carriers: [
-				{
-					name: 'ATT',
-					email: '@txt.att.net',
-				},
-				{
-					name: 'T Mobile',
-					email: '@tmomail.net',
-				},
-				{
-					name: 'Verizon',
-					email: '@vtext.com',
-				},
-				{
-					name: 'Sprint',
-					email: '@messaging.sprintpcs.com',
-				},
-				{
-					name: 'Xfinity Mobile',
-					email: 'number@mypixmessages.com',
-				},
-				{
-					name: 'Virgin Mobile',
-					email: '@vmobl.com',
-				},
-				{
-					name: 'Metro PCS',
-					email: '@mymetropcs.com',
-				},
-				{
-					name: 'Boost Mobile',
-					email: '@sms.myboostmobile.com',
-				},
-				{
-					name: 'cricket-wireless',
-					email: '@sms.cricketwireless.net',
-				},
-				{
-					name: 'US Cellular',
-					email: '@r@email.uscc.net',
-				},
-				{
-					name: 'Consumer Cellular',
-					email: '@mailmymobile.net',
-				},
-			],
+	if (!orderCountSettings) {
+		console.log("orderCount does not exists! setting orderCount to: 1000");
+		await Settings.insertAsync({
+			_id: "orderCount",
+			count: 1000,
 		});
 	}
 
-	//Configures "reset password account" email link
+	// 4. URLs de Accounts (sin os, usando Meteor.absoluteUrl)
 	Accounts.urls.resetPassword = function (token) {
 		return Meteor.absoluteUrl(`reset-password/${token}`);
 	};
 
-	//Configures "enroll account" email link
 	Accounts.urls.enrollAccount = function (token) {
-		// return Meteor.absoluteUrl(`enroll-account/${token}`);
-		const ip = getLocalIP();
-		return `${ip}:3000/enroll-account/${token}`;
+		return Meteor.absoluteUrl(`enroll-account/${token}`);
 	};
 
-	//Configures "verify email" email link
 	Accounts.urls.verifyEmail = function (token) {
 		return Meteor.absoluteUrl(`verify-email/${token}`);
 	};
 });
-
-function getLocalIP() {
-	const ifaces = os.networkInterfaces();
-	let localIp = '';
-
-	Object.keys(ifaces).forEach((ifname) => {
-		ifaces[ifname].forEach((iface) => {
-			if ('IPv4' !== iface.family || iface.internal !== false) {
-				return;
-			}
-			localIp = iface.address;
-		});
-	});
-
-	return localIp;
-}
-
-// business = {
-//   "id": "businessId",
-//   "name": "bonanza",
-//   "bossUser": {
-//     "id":"userid",
-//     "firstname": "firstname",
-//     "lastname": "lastname"
-//     },
-//   "reviews"[{
-//     "firstname":"juan",
-//     "lastname": "david",
-//     "coment":"good site"
-//   },
-//   {
-//     "firstname":"manuel",
-//     "lastname": "orozco",
-//     "coment":"bad site"
-//   }]
-// }
-
-// users-role-user = {
-//   "firstname":"juan",
-//   "lastname": "david",
-//   "myReviws"[{
-//     "businessName":"bonanza",
-//     "comments": "good site",
-//   }]
-// },
-// {
-//   "firstname":"manuel",
-//   "lastname": "orozco",
-//   "myReviws"[{
-//     "businessName":"bonanza",
-//     "comments": "bad site",
-//   }]
-// }

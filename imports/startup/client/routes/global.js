@@ -22,8 +22,6 @@ import '../../../ui/pages/global/reset-password/reset-password.js';
 //Not Authorized
 import '../../../ui/pages/global/not-authorized/not-authorized.js';
 
-BlazeLayout.setRoot('body');
-
 // Login (ruta explícita)
 FlowRouter.route("/login", {
 	name: "login",

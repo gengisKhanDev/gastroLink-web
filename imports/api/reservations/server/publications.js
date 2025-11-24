@@ -1,57 +1,44 @@
-import { Reservations } from '../reservations.js';
+import { Meteor } from "meteor/meteor";
+import { Reservations } from "../reservations.js";
 
 if (Meteor.isServer) {
-	Meteor.publish('reserves.all', () => {
-		if (Meteor.userId()) {
-			return Reservations.find({ id: id });
-		} else {
-			return [];
+	// Todas las reservas (para vistas tipo admin/member)
+	Meteor.publish("reservations.all", function () {
+		if (!this.userId) {
+			return this.ready();
 		}
+
+		return Reservations.find(
+			{},
+			{
+				fields: {
+					reservedDate: 1,
+					startTime: 1,
+					partySize: 1,
+					createdAt: 1,
+					"createdBy.name": 1,
+				},
+			}
+		);
 	});
 
-	Meteor.publish('reserves.user', (id) => {
-		if (Meteor.userId()) {
-			return Reservations.find({ 'createdBy.id': Meteor.userId() });
-		} else {
-			return [];
+	// Solo reservas del usuario logueado
+	Meteor.publish("reservations.byUser", function () {
+		if (!this.userId) {
+			return this.ready();
 		}
+
+		return Reservations.find(
+			{ "createdBy.id": this.userId },
+			{
+				fields: {
+					reservedDate: 1,
+					startTime: 1,
+					partySize: 1,
+					createdAt: 1,
+					"createdBy.name": 1,
+				},
+			}
+		);
 	});
-
-	ReactiveTable.publish(
-		'reservations',
-		Reservations,
-		{},
-		{
-			fields: {
-				_id: 1,
-				reservedDate: 1,
-				startTime: 1,
-				partySize: 1,
-				createdAt: 1,
-				'createdBy.name': 1,
-			},
-		},
-	);
-	//  ReactiveTable.publish("reservationsUser", function() {
-	//   // Obtener el ID del usuario actualmente autenticado
-	//   const currentUserId = this.userId;
-
-	//   console.log('Current User ID:', currentUserId);  // Asegúrate de remover este log una vez solucionado el problema.
-
-	//   // Filtrar las reservas basadas en el ID del usuario
-	//   const query = {
-	//       "createdBy.id": currentUserId
-	//   };
-
-	//   return Reservations.find(query, {
-	//       fields: {
-	//           _id: 1,
-	//           reservedDate: 1,
-	//           startTime: 1,
-	//           partySize: 1,
-	//           createdAt: 1,
-	//           "createdBy.name": 1
-	//       }
-	//   });
-	// });
 }
