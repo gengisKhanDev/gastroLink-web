@@ -1,8 +1,8 @@
 {
-  "public": {
-    "softwareVersion": "1.0.0"
-  },
-  "private": {
-    "sendgrid": ""
-  }
+	"public": {
+		"softwareVersion": "1.0.0"
+	},
+	"private": {
+		"sendgrid": ""
+	}
 }

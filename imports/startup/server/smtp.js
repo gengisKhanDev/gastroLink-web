@@ -14,7 +14,7 @@ if (Meteor.isServer) {
 	}
 }
 
-
 if (Meteor.isServer) {
-	process.env.MAIL_URL = "smtp://fer.hinojosa36@gmail.com:OVZWCMzh47f3t8S1@smtp-relay.brevo.com:587";
+	process.env.MAIL_URL =
+		'smtp://fer.hinojosa36@gmail.com:OVZWCMzh47f3t8S1@smtp-relay.brevo.com:587';
 }

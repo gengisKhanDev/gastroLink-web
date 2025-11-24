@@ -1,78 +1,102 @@
 <template name="global_sign_up">
-  <div class="sign-up">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 col-md-4 sign-up-div">
-          <img src="/logo-GastroLink.jpeg" alt="logo" class="logo">
+	<div class="sign-up">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 col-md-4 sign-up-div">
+					<img src="/logo-GastroLink.jpeg" alt="logo" class="logo" />
 
-          <form id="addUser">
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input type="text" class="form-control format-name" placeholder="First Name" id="firstName" autofocus
-                    required>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input type="text" class="form-control format-name" placeholder="Last Name" id="lastName" required>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="dob">Date of Birth</label>
-                <input type="date" class="form-control" id="dob" required>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Email" autofocus required>
-              </div>
-            </div>
+					<form id="addUser">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+									<label>First Name</label>
+									<input
+										type="text"
+										class="form-control format-name"
+										placeholder="First Name"
+										id="firstName"
+										autofocus
+										required
+									/>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+									<label>Last Name</label>
+									<input
+										type="text"
+										class="form-control format-name"
+										placeholder="Last Name"
+										id="lastName"
+										required
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="dob">Date of Birth</label>
+								<input type="date" class="form-control" id="dob" required />
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input
+									type="email"
+									class="form-control"
+									id="email"
+									placeholder="Email"
+									autofocus
+									required
+								/>
+							</div>
+						</div>
 
-            <div class="col-12 mt-2">
-              <div class="d-grid">
-                <button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
-                  Register
-                </button>
-              </div>
-            </div>
-          </form>
+						<div class="col-12 mt-2">
+							<div class="d-grid">
+								<button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
+									Register
+								</button>
+							</div>
+						</div>
+					</form>
 
-          <div id="showEnroll" style="display: none;">
-            <form id="enrollhrf">
-              <div class="text-center">
-                  <div class="row">
-                      <div class="col-8 p-0">
-                          <div class="form-group mb-3">
-                              <label for="text">Enter enroll code</label>
-                              <input type="text" class="form-control" id="text" placeholder="Enter enroll code" autofocus required>
-                          </div>
-                      </div>
-                      <div class="col-4 d-flex align-items-end">
-                          <button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
-                              Send
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </form>
-          
-        </div>
+					<div id="showEnroll" style="display: none">
+						<form id="enrollhrf">
+							<div class="text-center">
+								<div class="row">
+									<div class="col-8 p-0">
+										<div class="form-group mb-3">
+											<label for="text">Enter enroll code</label>
+											<input
+												type="text"
+												class="form-control"
+												id="text"
+												placeholder="Enter enroll code"
+												autofocus
+												required
+											/>
+										</div>
+									</div>
+									<div class="col-4 d-flex align-items-end">
+										<button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
+											Send
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 
-        <div class="text-center">
-          <hr>
-          <a href="/">Home</a>
-        </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
+					<div class="text-center">
+						<hr />
+						<a href="/">Home</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <!--                 <div class="drop-zone" id="image" style="background-image: url('{{event.image.base64}}')">

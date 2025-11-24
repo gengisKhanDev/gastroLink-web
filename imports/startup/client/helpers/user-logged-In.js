@@ -1,3 +1,3 @@
-Template.registerHelper("userLoggedIn", function(){
-  return Meteor.user();
+Template.registerHelper('userLoggedIn', function () {
+	return Meteor.user();
 });

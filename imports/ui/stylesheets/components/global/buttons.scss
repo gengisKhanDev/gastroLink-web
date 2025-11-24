@@ -1,44 +1,58 @@
 /*Override Bootstrap Buttons*/
 .btn-primary {
-  @include button-variant($color-1-purple, darken($color-1-purple, 7.5%), darken($color-1-purple, 10%), lighten($color-1-purple, 5%), lighten($color-1-purple, 10%), darken($color-1-purple, 30%));
-  color: $color-1-white !important;
-  border-color: $color-1-purple;
-  &:hover {
-    border-color: darken($color-2-purple, 10%);
-  }
+	@include button-variant(
+		$color-1-purple,
+		darken($color-1-purple, 7.5%),
+		darken($color-1-purple, 10%),
+		lighten($color-1-purple, 5%),
+		lighten($color-1-purple, 10%),
+		darken($color-1-purple, 30%)
+	);
+	color: $color-1-white !important;
+	border-color: $color-1-purple;
+	&:hover {
+		border-color: darken($color-2-purple, 10%);
+	}
 }
 
-.btn-danger{
-  background-color: #8B0000;
+.btn-danger {
+	background-color: #8b0000;
 }
 
 .btn-outline-primary {
-  @include button-variant($color-1-purple, darken($color-1-purple, 7.5%), darken($color-1-purple, 10%), lighten($color-1-purple, 5%), lighten($color-1-purple, 10%), darken($color-1-purple, 30%));
-  color: $color-1-white !important;
-  background-color: $color-1-black;
-  border-color: $color-1-purple;
-  &:hover {
-    border-color: darken($color-2-purple, 10%);
-  }
+	@include button-variant(
+		$color-1-purple,
+		darken($color-1-purple, 7.5%),
+		darken($color-1-purple, 10%),
+		lighten($color-1-purple, 5%),
+		lighten($color-1-purple, 10%),
+		darken($color-1-purple, 30%)
+	);
+	color: $color-1-white !important;
+	background-color: $color-1-black;
+	border-color: $color-1-purple;
+	&:hover {
+		border-color: darken($color-2-purple, 10%);
+	}
 }
 
 .btn-group.btn-group-block {
-  display: flex;
+	display: flex;
 }
 
 .btn-group-block .btn {
-  flex: 1
+	flex: 1;
 }
 
 .dropdown-menu {
-  border-radius: 0px !important;
-  .dropdown-item {
-    &:hover {
-      color: $color-1-white;
-      background-color: $color-1-blue;
-    }
-    &:focus {
-      background-color: $color-1-blue;
-    }
-  }
+	border-radius: 0px !important;
+	.dropdown-item {
+		&:hover {
+			color: $color-1-white;
+			background-color: $color-1-blue;
+		}
+		&:focus {
+			background-color: $color-1-blue;
+		}
+	}
 }

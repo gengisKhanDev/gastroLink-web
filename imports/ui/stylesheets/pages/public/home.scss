@@ -1,62 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 .public-body {
-  .home {
-    h2,
-    h3,
-    h4 {
-      font-family: "Poppins", sans-serif;
-    }
-    .cream-bg {
-      background-color: #f3eae3;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-    .card-img {
-      width: 100%; 
-      height: 300px; /* o la altura que prefieras */
-      object-fit: cover;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-  @media (max-width: 768px) {
-    .card-img {
-      height: 250px;
-    }
-  }
+	.home {
+		h2,
+		h3,
+		h4 {
+			font-family: 'Poppins', sans-serif;
+		}
+		.cream-bg {
+			background-color: #f3eae3;
+			padding-top: 2rem;
+			padding-bottom: 2rem;
+		}
+		.card-img {
+			width: 100%;
+			height: 300px; /* o la altura que prefieras */
+			object-fit: cover;
+			border-top-right-radius: 0px;
+			border-bottom-right-radius: 0px;
+		}
+		@media (max-width: 768px) {
+			.card-img {
+				height: 250px;
+			}
+		}
 
-  /* Para teléfonos en orientación portrait */
-@media (max-width: 480px) {
-    .card {
-      height: auto; /* Ajustar según necesidades */
-      overflow: hidden; /* En caso de que el contenido desborde el card */
-    }
-    .card-img {
-      height: 200px;
-    }
-    .card-body {
-      font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
-      padding: 5px; /* Reduce los espacios internos si es necesario */
-    }
-    .card-title, .card-text {
-      margin-bottom: 5px; /* Reduce márgenes si es necesario */
-    }
-    /* ... Otros ajustes según necesidad ... */
-  }
+		/* Para teléfonos en orientación portrait */
+		@media (max-width: 480px) {
+			.card {
+				height: auto; /* Ajustar según necesidades */
+				overflow: hidden; /* En caso de que el contenido desborde el card */
+			}
+			.card-img {
+				height: 200px;
+			}
+			.card-body {
+				font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
+				padding: 5px; /* Reduce los espacios internos si es necesario */
+			}
+			.card-title,
+			.card-text {
+				margin-bottom: 5px; /* Reduce márgenes si es necesario */
+			}
+			/* ... Otros ajustes según necesidad ... */
+		}
 
-  /* Para dispositivos muy pequeños */
-  // @media (max-width: 360px) {
-  //   .card-img {
-  //     height: 150px;
-  //   }
-  // }
-    .card h3 {
-      text-transform: uppercase;
-      color: rgb(177, 177, 177);
-      font-size: 0.8rem;
-    }
-    .card p {
-      line-height: 1.4em;
-    }
-  }
+		/* Para dispositivos muy pequeños */
+		// @media (max-width: 360px) {
+		//   .card-img {
+		//     height: 150px;
+		//   }
+		// }
+		.card h3 {
+			text-transform: uppercase;
+			color: rgb(177, 177, 177);
+			font-size: 0.8rem;
+		}
+		.card p {
+			line-height: 1.4em;
+		}
+	}
 }

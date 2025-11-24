@@ -1,21 +1,17 @@
-import "./member.html";
+import './member.html';
 
-require("select2")($);
-import "select2-bootstrap4-theme/dist/select2-bootstrap4.min.css";
+require('flatpickr');
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/confetti.css';
 
-require("flatpickr");
-import "flatpickr/dist/flatpickr.min.css";
-import "flatpickr/dist/themes/confetti.css";
-
-
-Template.member_body.onRendered(function(){
-  // console.log(Meteor.user().profile.firstName)
+Template.member_body.onRendered(function () {
+	// console.log(Meteor.user().profile.firstName)
 });
 
 Template.member_body.events({
-  // "keyup #phone"(event) {
-  //   event.preventDefault();
-  //   let x = event.target.value.replace(/\D/g, "").match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  //   event.target.value = !x[2] ? x[1] : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
-  // }
+	// "keyup #phone"(event) {
+	//   event.preventDefault();
+	//   let x = event.target.value.replace(/\D/g, "").match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+	//   event.target.value = !x[2] ? x[1] : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
+	// }
 });

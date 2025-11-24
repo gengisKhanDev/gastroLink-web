@@ -1,74 +1,74 @@
 .public-body {
-  .events {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding-bottom: 120px;
-    .events-row {
-      margin-left: 12%;
-      margin-right: 12%;
-      @media (min-width: 768px) and (max-width: 1024px) {
-        margin-left: 8%;
-        margin-right: 8%;
-      }
-      @media (min-width: 320px) and (max-width: 480px) {
-        margin-left: 0%;
-        margin-right: 0%;
-      }
-    }
-    .event-col {
-      @media (min-width: 768px) and (max-width: 1024px) {
-        margin-bottom: 10px;
-      }
-      @media (min-width: 320px) and (max-width: 480px) {
-        margin-bottom: 10px;
-      }
-    }
-    .title {
-      font-size: 48px;
-      font-weight: 400;
-      line-height: 72px;
-      text-align: center;
-      @media (min-width: 320px) and (max-width: 480px) {
-        font-size: 24px;
-        line-height: 32px;
-      }
-    }
-    .info {
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 36px;
-      text-align: center;
-      letter-spacing: 0.02em;
-      @media (min-width: 320px) and (max-width: 480px) {
-        font-size: 12px;
-        line-height: 32px;
-      }
-    }
-    .event {
-      cursor: pointer;
-      padding-bottom: 10px;
-      background: $color-1-black;
-      border-radius: 10px;
-      @media (min-width: 320px) and (max-width: 480px) {
-        margin-bottom: 10px;
-      }
-      &:hover {
-        background: linear-gradient(90deg, #a68d77 0%, #bfa688 100%);
-      }
-      .machine {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        padding: 4px;
-        width: 100%;
-        height: auto;
-      }
-      img:hover {
-        filter: grayscale(100%);
-        transform: scale(1.05); 
-      }
-      .content {
-        padding: 20px;
-      }
-    }
-  }
+	.events {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		padding-bottom: 120px;
+		.events-row {
+			margin-left: 12%;
+			margin-right: 12%;
+			@media (min-width: 768px) and (max-width: 1024px) {
+				margin-left: 8%;
+				margin-right: 8%;
+			}
+			@media (min-width: 320px) and (max-width: 480px) {
+				margin-left: 0%;
+				margin-right: 0%;
+			}
+		}
+		.event-col {
+			@media (min-width: 768px) and (max-width: 1024px) {
+				margin-bottom: 10px;
+			}
+			@media (min-width: 320px) and (max-width: 480px) {
+				margin-bottom: 10px;
+			}
+		}
+		.title {
+			font-size: 48px;
+			font-weight: 400;
+			line-height: 72px;
+			text-align: center;
+			@media (min-width: 320px) and (max-width: 480px) {
+				font-size: 24px;
+				line-height: 32px;
+			}
+		}
+		.info {
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 36px;
+			text-align: center;
+			letter-spacing: 0.02em;
+			@media (min-width: 320px) and (max-width: 480px) {
+				font-size: 12px;
+				line-height: 32px;
+			}
+		}
+		.event {
+			cursor: pointer;
+			padding-bottom: 10px;
+			background: $color-1-black;
+			border-radius: 10px;
+			@media (min-width: 320px) and (max-width: 480px) {
+				margin-bottom: 10px;
+			}
+			&:hover {
+				background: linear-gradient(90deg, #a68d77 0%, #bfa688 100%);
+			}
+			.machine {
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				padding: 4px;
+				width: 100%;
+				height: auto;
+			}
+			img:hover {
+				filter: grayscale(100%);
+				transform: scale(1.05);
+			}
+			.content {
+				padding: 20px;
+			}
+		}
+	}
 }

@@ -1,47 +1,47 @@
 /*Sour-Alert*/
 .sour-alert {
-  display: none;
-  z-index: 9999999999;
-  min-height: 10%;
-  height: fit-content;
-  min-width: 260px;
-  width: fit-content;
-  max-width: 20%;
+	display: none;
+	z-index: 9999999999;
+	min-height: 10%;
+	height: fit-content;
+	min-width: 260px;
+	width: fit-content;
+	max-width: 20%;
 
-  background-color: $color-1-white;
-  color: $color-1-black;
+	background-color: $color-1-white;
+	color: $color-1-black;
 
-  @include boxShadow;
+	@include boxShadow;
 
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin: auto;
-  text-align: center;
-  padding: 10px;
-  border-radius: 10px;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
+	text-align: center;
+	padding: 10px;
+	border-radius: 10px;
 
-  & .title {
-    font-weight: 600;
-    font-size: 28px;
-    margin-top: 20px;
-  }
+	& .title {
+		font-weight: 600;
+		font-size: 28px;
+		margin-top: 20px;
+	}
 
-  & .buttons {
-    display: contents;
-    position: absolute;
-    bottom: 10px;
-    left: 0px;
-    right: 0px;
-    margin: auto;
-  }
+	& .buttons {
+		display: contents;
+		position: absolute;
+		bottom: 10px;
+		left: 0px;
+		right: 0px;
+		margin: auto;
+	}
 
-  animation: pop 0.3s linear 1;
-  @keyframes pop{
-    50%  {
-      transform: scale(1.2);
-    }
-  }
+	animation: pop 0.3s linear 1;
+	@keyframes pop {
+		50% {
+			transform: scale(1.2);
+		}
+	}
 }

@@ -1,81 +1,108 @@
 <template name="member_create_business">
-  <div class="create-business">
-    <div class="container-fluid">
-      <h4>Create Business</h4>
-      <div class="row">
-        <div class="col-12">
-          <div class="my-2">
-            <form id="createBusiness">
-              <div class="row">
-                <div class="col-sm-12 col-md-6">
-                  <div class="form-group">
-                    <label for="name">Business Name*</label>
-                    <input type="text" class="form-control format-name" id="businessName"
-                      placeholder="Name" required>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <div class="form-group">
-                    <label for="address">Address*</label>
-                    <input type="text" class="form-control" id="businessAddress"
-                      placeholder="Address" required>
-                  </div>
-                </div>
-              </div>
+	<div class="create-business">
+		<div class="container-fluid">
+			<h4>Create Business</h4>
+			<div class="row">
+				<div class="col-12">
+					<div class="my-2">
+						<form id="createBusiness">
+							<div class="row">
+								<div class="col-sm-12 col-md-6">
+									<div class="form-group">
+										<label for="name">Business Name*</label>
+										<input
+											type="text"
+											class="form-control format-name"
+											id="businessName"
+											placeholder="Name"
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-6">
+									<div class="form-group">
+										<label for="address">Address*</label>
+										<input
+											type="text"
+											class="form-control"
+											id="businessAddress"
+											placeholder="Address"
+											required
+										/>
+									</div>
+								</div>
+							</div>
 
-              <div class="row">
-                <div class="col-sm-12 col-md-6">
-                  <div class="form-group">
-                    <label for="phoneNumber">Phone Number*</label>
-                    <input type="text" class="form-control format-phone" id="phoneNumber"
-                      placeholder="Phone Number" required>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <div class="form-group">
-                    <label for="email">Business Email*</label>
-                    <input type="email" class="form-control" id="businessEmail"
-                      placeholder="Email" required>
-                  </div>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-sm-12 col-md-6">
+									<div class="form-group">
+										<label for="phoneNumber">Phone Number*</label>
+										<input
+											type="text"
+											class="form-control format-phone"
+											id="phoneNumber"
+											placeholder="Phone Number"
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-6">
+									<div class="form-group">
+										<label for="email">Business Email*</label>
+										<input
+											type="email"
+											class="form-control"
+											id="businessEmail"
+											placeholder="Email"
+											required
+										/>
+									</div>
+								</div>
+							</div>
 
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="maxCapacity">Max Capacity*</label>
-                    <input type="number" class="form-control" id="maxCapacity"
-                      placeholder="Enter Max Capacity For Your Business" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="description" class="form-label">Description</label>
-                  <textarea class="form-control" id="description" rows="2" placeholder="Escribe aquí..."
-                    maxlength="120"></textarea>
-                  <div class="mt-2">
-                    <span id="charCount">0</span> / 120 caracteres
-                  </div>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label for="maxCapacity">Max Capacity*</label>
+										<input
+											type="number"
+											class="form-control"
+											id="maxCapacity"
+											placeholder="Enter Max Capacity For Your Business"
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="description" class="form-label">Description</label>
+									<textarea
+										class="form-control"
+										id="description"
+										rows="2"
+										placeholder="Escribe aquí..."
+										maxlength="120"
+									></textarea>
+									<div class="mt-2"><span id="charCount">0</span> / 120 caracteres</div>
+								</div>
+							</div>
 
-              <div class="row">
-                <div class="col-12">
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-primary
-                      btn-block mt-4">
-                      <i class="fas fa-edit"></i> Create
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- <div class="drop-zone" id="aboutUsImage">
+							<div class="row">
+								<div class="col-12">
+									<div class="d-grid">
+										<button type="submit" class="btn btn-primary btn-block mt-4">
+											<i class="fas fa-edit"></i> Create
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- <div class="drop-zone" id="aboutUsImage">
             <input type="file" accept="image/*" class="file">
             <h4 class="text">Drag & Drop Image</h4>
           </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

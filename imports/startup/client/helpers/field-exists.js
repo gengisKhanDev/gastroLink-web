@@ -1,17 +1,15 @@
-Template.registerHelper("fieldExists", function (value) {
-  if(!value){
-    return "N/A";
-  }
-  else {
-    return value;
-  }
+Template.registerHelper('fieldExists', function (value) {
+	if (!value) {
+		return 'N/A';
+	} else {
+		return value;
+	}
 });
 
 fieldExists = (value) => {
-    if(value){
-      return value;
-    }
-    else {
-      return "N/A";
-    }
-}
+	if (value) {
+		return value;
+	} else {
+		return 'N/A';
+	}
+};

@@ -1,70 +1,84 @@
 <template name="global_login">
-  <div class="login">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 col-md-4 login-div">
-          <img src="/logo-GastroLink.jpeg" alt="logo" class="logo">
+	<div class="login">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 col-md-4 login-div">
+					<img src="/logo-GastroLink.jpeg" alt="logo" class="logo" />
 
-          <form id="login">
-            <div class="col-12 error" id="loginErrorDiv">
-              <span id="loginError"></span>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="usr">Email</label>
-                <input type="email" class="form-control" id="email"
-                  placeholder="Email" autofocus required>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="usr">Password</label>
-              </div>
-              <div class="input-group mb-3" id="showHidePassword">
-                <input type="password" class="form-control" placeholder="Password"
-                  id="password" required>
-                <span class="input-group-text">
-                  <i class="far fa-eye-slash" style="cursor: pointer"></i>
-                </span>
-              </div>
-            </div>
-            <div class="col-12 mt-2">
-              <div class="d-grid pb-2">
-                <button type="submit" class="btn btn-primary btn-block">
-                  Login
-                </button>
-              </div>
-            </div>
-          </form>
-          <div class="text-center">
-            <a href="/forgot-password" class="forgot-password">Forgot Password?</a><br>
-            <hr>
-            <div class="d-grid pb-2">
-              <a href="/sign-up" class="btn btn-danger btn-block">
-                Sign up
-              </a>
-            </div>
-            <a href="/">Home</a>
-          </div>
-          <form id="enrollhrf">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-8 p-0">
-                        <div class="form-group mb-3">
-                            <label for="text">Enter enroll code</label>
-                            <input type="text" class="form-control" id="text" placeholder="Enter enroll code" autofocus required>
-                        </div>
-                    </div>
-                    <div class="col-4 d-flex align-items-end">
-                        <button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
-                            Send
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        </div>
-      </div>
-    </div>
-  </div>
+					<form id="login">
+						<div class="col-12 error" id="loginErrorDiv">
+							<span id="loginError"></span>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="usr">Email</label>
+								<input
+									type="email"
+									class="form-control"
+									id="email"
+									placeholder="Email"
+									autofocus
+									required
+								/>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="usr">Password</label>
+							</div>
+							<div class="input-group mb-3" id="showHidePassword">
+								<input
+									type="password"
+									class="form-control"
+									placeholder="Password"
+									id="password"
+									required
+								/>
+								<span class="input-group-text">
+									<i class="far fa-eye-slash" style="cursor: pointer"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-12 mt-2">
+							<div class="d-grid pb-2">
+								<button type="submit" class="btn btn-primary btn-block">Login</button>
+							</div>
+						</div>
+					</form>
+					<div class="text-center">
+						<a href="/forgot-password" class="forgot-password">Forgot Password?</a><br />
+						<hr />
+						<div class="d-grid pb-2">
+							<a href="/sign-up" class="btn btn-danger btn-block"> Sign up </a>
+						</div>
+						<a href="/">Home</a>
+					</div>
+					<form id="enrollhrf">
+						<div class="text-center">
+							<div class="row">
+								<div class="col-8 p-0">
+									<div class="form-group mb-3">
+										<label for="text">Enter enroll code</label>
+										<input
+											type="text"
+											class="form-control"
+											id="text"
+											placeholder="Enter enroll code"
+											autofocus
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-4 d-flex align-items-end">
+									<button type="submit" id="addUserBtn" class="btn btn-primary btn-block">
+										Send
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

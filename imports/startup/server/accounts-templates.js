@@ -1,12 +1,12 @@
-if(Meteor.isServer){
-  Accounts.emailTemplates.siteName = "gastrolink";
-  Accounts.emailTemplates.from = "<businessMail@gastrolink.com>";
-  Accounts.emailTemplates.resetPassword = {
-    subject(user){
-      return "Reset Password";
-    },
-    html(user, url){
-      return `
+if (Meteor.isServer) {
+	Accounts.emailTemplates.siteName = 'gastrolink';
+	Accounts.emailTemplates.from = '<businessMail@gastrolink.com>';
+	Accounts.emailTemplates.resetPassword = {
+		subject(user) {
+			return 'Reset Password';
+		},
+		html(user, url) {
+			return `
 			<!DOCTYPE html>
 			<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -217,16 +217,16 @@ if(Meteor.isServer){
 					</tbody>
 				</table>
 			</body>
-      `
-    }
-  };
+      `;
+		},
+	};
 
-  Accounts.emailTemplates.enrollAccount = {
-    subject(user){
-      return "Welcome to GastroLink";
-    },
-    html(user, url){
-      return `
+	Accounts.emailTemplates.enrollAccount = {
+		subject(user) {
+			return 'Welcome to GastroLink';
+		},
+		html(user, url) {
+			return `
 			<!DOCTYPE html>
 			<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -440,6 +440,6 @@ if(Meteor.isServer){
 				</table>
 			</body>
       `;
-    }
-  };
+		},
+	};
 }

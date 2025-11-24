@@ -1,93 +1,127 @@
 <template name="admin_my_account">
-  <div class="my-account">
-    <div class="container-fluid container-white">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="text-center fw-bolder"><a href="/">My Account</a></h2>
-        </div>
-      </div>
+	<div class="my-account">
+		<div class="container-fluid container-white">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="text-center fw-bolder"><a href="/">My Account</a></h2>
+				</div>
+			</div>
 
-      <div class="row">
-        <div class="col-12">
-          <form id="myAccount">
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="firstName">First Name:</label>
-                  <input type="text" class="form-control" id="firstName"
-                    placeholder="First Name" value="{{user.profile.firstName}}" autocomplete="off" required>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="lastName">Last Name:</label>
-                  <input type="text" class="form-control" id="lastName"
-                    placeholder="Last Name" value="{{user.profile.lastName}}" autocomplete="off" required>
-                </div>
-              </div>
-            </div>
+			<div class="row">
+				<div class="col-12">
+					<form id="myAccount">
+						<div class="row">
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="firstName">First Name:</label>
+									<input
+										type="text"
+										class="form-control"
+										id="firstName"
+										placeholder="First Name"
+										value="{{user.profile.firstName}}"
+										autocomplete="off"
+										required
+									/>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="lastName">Last Name:</label>
+									<input
+										type="text"
+										class="form-control"
+										id="lastName"
+										placeholder="Last Name"
+										value="{{user.profile.lastName}}"
+										autocomplete="off"
+										required
+									/>
+								</div>
+							</div>
+						</div>
 
-            <div class="row">
-              <div class="col-12 mt-4">
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary btn-block" id="editUserBtn">
-                    <i class="fas fa-edit"></i> Edit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+						<div class="row">
+							<div class="col-12 mt-4">
+								<div class="d-grid">
+									<button type="submit" class="btn btn-primary btn-block" id="editUserBtn">
+										<i class="fas fa-edit"></i> Edit
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 
-        {{#if $eq currentUser.profile.role.name "Admin"}}
-        <div class="col-12 pt-4">
-          <h2 class="page-title">Add User</h2>
-          <form id="addUser">
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="firstName">First Name:</label>
-                  <input type="text" class="form-control format-name" id="firstName" placeholder="Enter first name" autocomplete="off" required>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="lastName">Last Name:</label>
-                  <input type="text" class="form-control format-name" id="lastName" placeholder="Enter last name" autocomplete="off" required>
-                </div>
-              </div>
-            </div>
+				{{#if $eq currentUser.profile.role.name "Admin"}}
+				<div class="col-12 pt-4">
+					<h2 class="page-title">Add User</h2>
+					<form id="addUser">
+						<div class="row">
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="firstName">First Name:</label>
+									<input
+										type="text"
+										class="form-control format-name"
+										id="firstName"
+										placeholder="Enter first name"
+										autocomplete="off"
+										required
+									/>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="lastName">Last Name:</label>
+									<input
+										type="text"
+										class="form-control format-name"
+										id="lastName"
+										placeholder="Enter last name"
+										autocomplete="off"
+										required
+									/>
+								</div>
+							</div>
+						</div>
 
-            <div class="row my-4">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="roleID">Role*</label>
-                  <select class="form-control select2" id="roleID" style="width: 100%;" required>
-                    <option></option>
-                    {{#each userRole in roles}}
-                      <option value="{{userRole.id}}">{{userRole.name}}</option>
-                    {{/each}}
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" class="form-control" id="email" placeholder="Enter email" autocomplete="off" required>
-                </div>
-              </div>
-            </div>
+						<div class="row my-4">
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="roleID">Role*</label>
+									<select class="form-control select2" id="roleID" style="width: 100%" required>
+										<option></option>
+										{{#each userRole in roles}}
+										<option value="{{userRole.id}}">{{userRole.name}}</option>
+										{{/each}}
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label for="email">Email:</label>
+									<input
+										type="email"
+										class="form-control"
+										id="email"
+										placeholder="Enter email"
+										autocomplete="off"
+										required
+									/>
+								</div>
+							</div>
+						</div>
 
-            <div class="float-right">
-              <button type="submit" id="addUserBtn" class="btn btn-primary">
-                <i class="fas fa-plus-square"></i> Invite
-              </button>
-            </div>
-          </form>
-        </div>
-        {{/if}}
-
-      </div>
-    </div>
-  </div>
+						<div class="float-right">
+							<button type="submit" id="addUserBtn" class="btn btn-primary">
+								<i class="fas fa-plus-square"></i> Invite
+							</button>
+						</div>
+					</form>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
 </template>

@@ -1,49 +1,57 @@
 <template name="public_navbar">
-<nav class="navbar navbar-expand-md bg-light">
-  <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="/logo-GastroLink.jpeg" alt="logo" width="100px">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">About Us</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Contact Us</a>
-              </li>
-              <li class="nav-item">
-                {{#if userLoggedIn}}
-                  <button type="button" class="btn btn-outline-primary mx-2" id="myAccount">
-                    My Account
-                  </button>
-                  <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
-                {{else}}
-                  <a href="/login" class="btn btn-outline-primary">
-                    <i class="far fa-user-circle"></i> LOGIN
-                  </a>
-                  <a href="/sign-up" class="btn btn-primary">
-                    <i class="fas fa-user-plus"></i> SIGN UP
-                  </a>
-                {{/if}}
-              </li>
-          </ul>
-          <div class="search-and-icons">
-              <form class="d-flex mb-2 me-4" role="search">
-                  <input class="form-control me-2" type="search" aria-label="Search">
-              </form>
-          </div>
-          <div class="contact-info">
-              <p>+57384792619 | +573156160499</p>
-              <p><a href="mailto:">businessMail@gastrolink.com</a></p>
-          </div>
-      </div>
-  </div>
-</nav>
+	<nav class="navbar navbar-expand-md bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">
+				<img src="/logo-GastroLink.jpeg" alt="logo" width="100px" />
+			</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">About Us</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Contact Us</a>
+					</li>
+					<li class="nav-item">
+						{{#if userLoggedIn}}
+						<button type="button" class="btn btn-outline-primary mx-2" id="myAccount">
+							My Account
+						</button>
+						<button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
+						{{else}}
+						<a href="/login" class="btn btn-outline-primary">
+							<i class="far fa-user-circle"></i> LOGIN
+						</a>
+						<a href="/sign-up" class="btn btn-primary">
+							<i class="fas fa-user-plus"></i> SIGN UP
+						</a>
+						{{/if}}
+					</li>
+				</ul>
+				<div class="search-and-icons">
+					<form class="d-flex mb-2 me-4" role="search">
+						<input class="form-control me-2" type="search" aria-label="Search" />
+					</form>
+				</div>
+				<div class="contact-info">
+					<p>+57384792619 | +573156160499</p>
+					<p><a href="mailto:">businessMail@gastrolink.com</a></p>
+				</div>
+			</div>
+		</div>
+	</nav>
 </template>

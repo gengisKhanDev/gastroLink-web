@@ -1,11 +1,7 @@
 <template name="member_body">
-  <div class="member-body">
-    {{#if currentUser.business}}
-      {{> Template.dynamic template=navbar}}
-      {{> Template.dynamic template=main}}
-      {{> Template.dynamic template=sidebar}}
-    {{else}}
-     {{> Template.dynamic template=main}}
-    {{/if}}
-  </div>
+	<div class="member-body">
+		{{#if currentUser.business}} {{> Template.dynamic template=navbar}} {{> Template.dynamic
+		template=main}} {{> Template.dynamic template=sidebar}} {{else}} {{> Template.dynamic
+		template=main}} {{/if}}
+	</div>
 </template>

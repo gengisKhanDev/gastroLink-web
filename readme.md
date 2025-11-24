@@ -55,8 +55,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
 
    ```javascript
    // smtp.js
-   process.env.MAIL_URL =
-     "smtps://apikey:<YOUR_SENDGRID_API_KEY>@smtp.sendgrid.net:465";
+   process.env.MAIL_URL = 'smtps://apikey:<YOUR_SENDGRID_API_KEY>@smtp.sendgrid.net:465';
    ```
 
 5. Inicia la aplicación:
@@ -92,11 +91,12 @@ Cuando inicias la aplicación por primera vez, se crea un usuario por defecto. P
 - Navega hasta el directorio del proyecto clonado y selecciónalo.
 
 3. Cambiar la URL en el archivo WebView.kt:
-Actualiza la constante WEB_VIEW_URL con la IP del servidor del proyecto que está corriendo de manera local:
+   Actualiza la constante WEB_VIEW_URL con la IP del servidor del proyecto que está corriendo de manera local:
 
    ```bash
    const val WEB_VIEW_URL = "http://YOUR_LOCAL_IP:3000/"
    ```
+
 4. Abrir el proyecto en Android Studio:
 
 - Conecta un dispositivo Android o utiliza un emulador.

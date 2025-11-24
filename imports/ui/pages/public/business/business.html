@@ -1,49 +1,52 @@
 <template name="public_business_view">
+	<div class="business-view pb-5">
+		<div class="container-fluid">
+			<div class="row about-us-images my-4">
+				<div class="col-12">
+					<div id="aboutUsImages" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner">
+							{{#each bussines in business.images}} {{#unless isDefaultImage bussines.id}}
+							<div class="carousel-item {{isActive @index}}">
+								<div class="image-container">
+									<img class="image img-fluid" src="{{bussines.base64}}" alt="{{bussines.name}}" />
+								</div>
+							</div>
+							{{/unless}} {{/each}}
+						</div>
 
-  <div class="business-view pb-5">
-    <div class="container-fluid">
+						<button
+							class="carousel-control-prev"
+							type="button"
+							data-bs-target="#aboutUsImages"
+							data-bs-slide="prev"
+						>
+							<span class="carousel-control-prev-icon"></span>
+						</button>
+						<button
+							class="carousel-control-next"
+							type="button"
+							data-bs-target="#aboutUsImages"
+							data-bs-slide="next"
+						>
+							<span class="carousel-control-next-icon"></span>
+						</button>
+					</div>
+				</div>
+			</div>
 
-      <div class="row about-us-images my-4">
-        <div class="col-12">
-          <div id="aboutUsImages" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              {{#each bussines in business.images}}
-              {{#unless isDefaultImage bussines.id}}
-              <div class="carousel-item {{isActive @index}}">
-                <div class="image-container">
-                  <img class="image img-fluid" src="{{bussines.base64}}" alt="{{bussines.name}}">
-                </div>
-              </div>
-              {{/unless}}
-              {{/each}}
-            </div>
+			<!-- <div class="row about-us-images"> -->
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#aboutUsImages" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#aboutUsImages" data-bs-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-
-
-      <!-- <div class="row about-us-images"> -->
-
-      <!-- {{#each bussines in business.images}}
+			<!-- {{#each bussines in business.images}}
         {{#unless isDefaultImage bussines.id}}
           <div class="col-sm-12 col-md-4 my-4 about-us-image">
             <img class="img-fluid" src="{{bussines.base64}}" alt="{{bussines.name}}">
           </div>
         {{/unless}}
       {{/each}} -->
-      <!-- </div> -->
+			<!-- </div> -->
 
-
-      <!-- {{#if business}} -->
-      <!-- <div class="row about-us-images my-4">
+			<!-- {{#if business}} -->
+			<!-- <div class="row about-us-images my-4">
       <div class="col-12">
         <div id="aboutUsImages" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -67,115 +70,125 @@
         </div>
       </div>
     </div> -->
-      <!-- {{/if}} -->
+			<!-- {{/if}} -->
 
-      <div class="row">
-        <div class="col-sm-12 col-md-8">
-          <div class="row">
-            <div class="col-12">
-              <div class="ql-editor" style="height: 100% !important;">
-                <div>{{{business.descriptionHTML.html}}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 pt-4">
-                  <h2 class="text-center">Make a reservation</h2>
-                </div>
-              </div>
-              <form id="addReservation">
-                <div class="row">
-                  <div class="col-sm-12 col-md-6">
-                    <div class="form-group">
-                      <label for="date">Date</label>
-                      <input type="date" class="form-control" id="date" required>
-                    </div>
-                  </div>
+			<div class="row">
+				<div class="col-sm-12 col-md-8">
+					<div class="row">
+						<div class="col-12">
+							<div class="ql-editor" style="height: 100% !important">
+								<div>{{{business.descriptionHTML.html}}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-4">
+					<div class="row">
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 pt-4">
+									<h2 class="text-center">Make a reservation</h2>
+								</div>
+							</div>
+							<form id="addReservation">
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+										<div class="form-group">
+											<label for="date">Date</label>
+											<input type="date" class="form-control" id="date" required />
+										</div>
+									</div>
 
-                  <div class="col-sm-12 col-md-6">
-                    <div class="form-group">
-                      <label for="time">Time</label>
-                      <input type="time" class="form-control time" id="time" autocomplete="off" required>
-                    </div>
-                  </div>
+									<div class="col-sm-12 col-md-6">
+										<div class="form-group">
+											<label for="time">Time</label>
+											<input
+												type="time"
+												class="form-control time"
+												id="time"
+												autocomplete="off"
+												required
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+											<label for="partySize">Party Size:</label>
+											<select class="form-control select2" id="partySize" required>
+												{{#each maxCapacityOptions}}
+												<option value="{{this}}">{{this}} people</option>
+												{{/each}}
+											</select>
+										</div>
+									</div>
 
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="partySize">Party Size:</label>
-                      <select class="form-control select2" id="partySize" required>
-                        {{#each maxCapacityOptions}}
-                        <option value="{{this}}">{{this}} people</option>
-                        {{/each}}
-                      </select>
-                    </div>
-                  </div>
+									<div class="col-12">
+										<button
+											type="submit"
+											class="btn btn-primary btn-block mt-4"
+											id="reservationBtn"
+											disabled
+										>
+											<i class="fas fa-edit"></i> Make Reservation
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12 pt-4">
+									<h2 class="text-center">Make a Review</h2>
+								</div>
+							</div>
+							<form id="addReview">
+								<div class="row">
+									<div class="col d-flex justify-content-center">
+										<div class="rate">
+											<input type="radio" id="star5" name="rate" value="5" />
+											<label class="select-star" for="star5" title="text">5 stars</label>
+											<input type="radio" id="star4" name="rate" value="4" />
+											<label class="select-star" for="star4" title="text">4 stars</label>
+											<input type="radio" id="star3" name="rate" value="3" />
+											<label class="select-star" for="star3" title="text">3 stars</label>
+											<input type="radio" id="star2" name="rate" value="2" />
+											<label class="select-star" for="star2" title="text">2 stars</label>
+											<input type="radio" id="star1" name="rate" value="1" />
+											<label class="select-star" for="star1" title="text">1 star</label>
+										</div>
+									</div>
+								</div>
 
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block mt-4" id="reservationBtn" disabled>
-                      <i class="fas fa-edit"></i> Make Reservation
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 pt-4">
-                  <h2 class="text-center">Make a Review</h2>
-                </div>
-              </div>
-              <form id="addReview">
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+											<input
+												type="text"
+												class="form-control"
+												id="review"
+												placeholder="Enter your Review"
+												required
+											/>
+										</div>
+									</div>
+								</div>
 
-                <div class="row">
-                  <div class="col d-flex justify-content-center">
-                      <div class="rate">
-                          <input type="radio" id="star5" name="rate" value="5" />
-                          <label class="select-star" for="star5" title="text">5 stars</label>
-                          <input type="radio" id="star4" name="rate" value="4" />
-                          <label class="select-star" for="star4" title="text">4 stars</label>
-                          <input type="radio" id="star3" name="rate" value="3" />
-                          <label class="select-star" for="star3" title="text">3 stars</label>
-                          <input type="radio" id="star2" name="rate" value="2" />
-                          <label class="select-star" for="star2" title="text">2 stars</label>
-                          <input type="radio" id="star1" name="rate" value="1" />
-                          <label class="select-star" for="star1" title="text">1 star</label>
-                      </div>
-                  </div>
-              </div>
+								<div class="row">
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary btn-block mt-4">
+											<i class="fas fa-edit"></i> Make Review
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" id="review" placeholder="Enter your Review" required>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block mt-4">
-                      <i class="fas fa-edit"></i> Make Review
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-
-
-      </div>
-
-    </div>
-  </div>
-
+			<div class="row"></div>
+		</div>
+	</div>
 </template>
