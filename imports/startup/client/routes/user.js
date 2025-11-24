@@ -1,54 +1,45 @@
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { Meteor } from "meteor/meteor";
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
-/*Layout*/
-import '../../../ui/layouts/body/user.js';
+/* Layout */
+import "../../../ui/layouts/body/user.js";
 
-/*Components*/
-//Desktop
-import '../../../ui/components/user/sidebar/sidebar.js';
+/* Components */
+// Desktop
+import "../../../ui/components/user/sidebar/sidebar.js";
 
-/*Pages*/
-//Home
-import '../../../ui/pages/user/reservations/reservations.js';
-import '../../../ui/pages/user/my-account/my-account.js';
+/* Pages */
+// Home / Reservations / My Account
+import "../../../ui/pages/user/reservations/reservations.js";
+import "../../../ui/pages/user/my-account/my-account.js";
 
-BlazeLayout.setRoot('body');
+// 🔹 Ya NO usamos BlazeLayout.setRoot('body')
 
-//Home
-FlowRouter.route('/user/my-account', {
-	name: 'user.my-account',
-	triggersEnter: [
-		(context) => {
-			if (!Meteor.userId()) {
-				FlowRouter.go('/');
-			} else {
-				BlazeLayout.render('user_body', {
-					main: 'user_my_account',
-					navbar: 'user_sidebar',
-				});
-			}
-		},
-	],
+// Helper para rutas de usuario logueado
+function renderUserIfLoggedIn(mainTemplate) {
+	if (!Meteor.userId()) {
+		FlowRouter.go("/");
+		return;
+	}
+
+	this.render("user_body", {
+		main: mainTemplate,
+		navbar: "user_sidebar",
+	});
+}
+
+// My Account
+FlowRouter.route("/user/my-account", {
+	name: "user.my-account",
+	action() {
+		renderUserIfLoggedIn.call(this, "user_my_account");
+	},
 });
-FlowRouter.route('/user/reservations', {
-	name: 'user.reservations',
-	triggersEnter: [
-		(context) => {
-			if (!Meteor.userId()) {
-				FlowRouter.go('/');
-			} else {
-				BlazeLayout.render('user_body', {
-					main: 'user_reservations',
-					navbar: 'user_sidebar',
-				});
-			}
-		},
-	],
+
+// Reservations
+FlowRouter.route("/user/reservations", {
+	name: "user.reservations",
+	action() {
+		renderUserIfLoggedIn.call(this, "user_reservations");
+	},
 });
-//   triggersEnter: [(context) => {
-//     BlazeLayout.render("user_body", {
-//       main: "user_my_account",
-//     });
-//   }]
-// });

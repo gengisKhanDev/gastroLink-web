@@ -1,5 +1,5 @@
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { Meteor } from "meteor/meteor";
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 /*Layout*/
 import '../../../ui/layouts/body/global.js';
@@ -24,91 +24,88 @@ import '../../../ui/pages/global/not-authorized/not-authorized.js';
 
 BlazeLayout.setRoot('body');
 
-//Login
-FlowRouter.route('/login', {
-	name: 'home',
-	triggersEnter: [
-		(context) => {
-			BlazeLayout.render('global_body', {
-				main: 'global_login',
-			});
-		},
-	],
-});
-
-//Sign Up
-FlowRouter.route('/sign-up', {
-	name: 'sign-up',
-	triggersEnter: [
-		(context) => {
-			if (Meteor.userId()) {
-				FlowRouter.go('/account/my-account');
-				location.reload();
-			}
-			BlazeLayout.render('global_body', {
-				main: 'global_sign_up',
-			});
-		},
-	],
-});
-
-//Enroll Account
-FlowRouter.route('/enroll-account/:token', {
-	name: 'enroll',
-	triggersEnter: [
-		(context) => {
-			if (Meteor.userId()) {
-				FlowRouter.go('/');
-			}
-		},
-	],
+// Login (ruta explícita)
+FlowRouter.route("/login", {
+	name: "login",
 	action() {
-		BlazeLayout.render('global_body', {
-			main: 'enroll',
+		this.render("global_body", {
+			main: "global_login",
 		});
 	},
 });
 
-//Forgot Password
-FlowRouter.route('/forgot-password', {
-	name: 'forgot.password',
+// Sign Up
+FlowRouter.route("/sign-up", {
+	name: "sign-up",
 	action() {
-		BlazeLayout.render('global_body', {
-			main: 'forgot_password',
+		if (Meteor.userId()) {
+			// Ojo: en tu código original era "/account/my-account"
+			// Si la ruta real es "/my-account", puedes corregirlo aquí.
+			FlowRouter.go("/account/my-account");
+			return;
+		}
+
+		this.render("global_body", {
+			main: "global_sign_up",
 		});
 	},
 });
 
-//Reset Password
-FlowRouter.route('/reset-password/:token', {
-	name: 'reset_password',
-	action() {
-		BlazeLayout.render('global_body', {
-			main: 'reset_password',
+// Enroll Account
+FlowRouter.route("/enroll-account/:token", {
+	name: "enroll",
+	action(params) {
+		if (Meteor.userId()) {
+			FlowRouter.go("/");
+			return;
+		}
+
+		this.render("global_body", {
+			main: "enroll",
 		});
 	},
 });
 
-//Not Authorized
-FlowRouter.route('/not-authorized', {
-	name: 'not_authorized',
+// Forgot Password
+FlowRouter.route("/forgot-password", {
+	name: "forgot.password",
 	action() {
-		BlazeLayout.render('global_body', {
-			navbar: 'public_navbar',
-			main: 'global_not_authorized',
-			footer: 'public_footer',
+		this.render("global_body", {
+			main: "forgot_password",
 		});
 	},
 });
 
-//404 (Not Found)
-FlowRouter.notFound = {
-	name: 'not.found',
-	action() {
-		BlazeLayout.render('global_body', {
-			navbar: 'public_navbar',
-			main: 'not_found',
-			footer: 'public_footer',
+// Reset Password
+FlowRouter.route("/reset-password/:token", {
+	name: "reset_password",
+	action(params) {
+		this.render("global_body", {
+			main: "reset_password",
 		});
 	},
-};
+});
+
+// Not Authorized
+FlowRouter.route("/not-authorized", {
+	name: "not_authorized",
+	action() {
+		this.render("global_body", {
+			navbar: "public_navbar",
+			main: "global_not_authorized",
+			footer: "public_footer",
+		});
+	},
+});
+
+// 404 (Not Found) – patrón recomendado con '*'
+FlowRouter.route("*", {
+	name: "not.found",
+	action() {
+		this.render("global_body", {
+			navbar: "public_navbar",
+			main: "not_found",
+			footer: "public_footer",
+		});
+	},
+});
