@@ -72,7 +72,7 @@ Meteor.methods({
 			},
 		);
 	},
-	'upload.aboutUsImageBusiness'(id, fileObject) {
+	async 'upload.aboutUsImageBusiness'(id, fileObject) {
 		console.log('Ran Method [upload.aboutUsImageBusiness]');
 
 		if (!Meteor.userId()) {
@@ -83,7 +83,7 @@ Meteor.methods({
 		check(fileObject, Object);
 
 		const imageID = Random.id();
-		const thisBusiness = Business.findOne({ _id: id });
+		const thisBusiness = await Business.findOneAsync({ _id: id });
 		Business.update(
 			{ _id: id },
 			{
@@ -159,7 +159,7 @@ Meteor.methods({
 			},
 		);
 	},
-	'business.deleteImage'(id, imageID) {
+	async 'business.deleteImage'(id, imageID) {
 		console.log('Ran Method [business.deleteImage]');
 
 		console.log(id);
@@ -171,7 +171,7 @@ Meteor.methods({
 		check(id, String);
 		check(imageID, String);
 
-		const thisGame = Business.findOne({ _id: id });
+		const thisGame = await Business.findOneAsync({ _id: id });
 		if (thisGame.defaultImage === imageID) {
 			throw new Meteor.Error('default-image', "Can't delete default image!");
 		}

@@ -17,8 +17,8 @@ function parseTimeToDayjs(timeString) {
 }
 
 Meteor.methods({
-	"create.reservation"(id, partySize, date, startTime, endTime) {
-		const business = Business.findOne({ _id: id });
+	"create.reservation": async function(id, partySize, date, startTime, endTime) {
+		const business = await Business.findOneAsync({ _id: id });
 		const businessName = business.businessName;
 		const currentReserved = getReservedCount(date, startTime);
 		const availableSpace = business.maxCapacity - currentReserved;
@@ -46,13 +46,9 @@ Meteor.methods({
 		return business.maxCapacity - currentReserved - partySize;
 	},
 
-	getAvailableSpace(id, date, startTime) {
-		const business = Business.findOne({ _id: id });
+	getAvailableSpace: async function(id, date, startTime) {
+		const business = await Business.findOneAsync({ _id: id });
 		const currentReserved = getReservedCount(date, startTime);
-
-		console.log("currentReserved asdasd");
-		console.log(currentReserved);
-		console.log(business.maxCapacity - currentReserved);
 
 		return business.maxCapacity - currentReserved;
 	},

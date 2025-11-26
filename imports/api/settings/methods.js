@@ -13,12 +13,12 @@ Meteor.methods({
 			_id: 'reservation',
 		});
 	},
-	'reservation.update'(reservation) {
+	async 'reservation.update'(reservation) {
 		console.log('Successfully ran [reservation.update]');
 
 		check(reservation, Object);
 
-		const reservationExists = Settings.findOne({ _id: 'reservation' });
+		const reservationExists = await Settings.findOneAsync({ _id: 'reservation' });
 		if (reservationExists) {
 			Settings.update(
 				{ _id: 'reservation' },
@@ -35,7 +35,7 @@ Meteor.methods({
 			});
 		}
 	},
-	'company.info'(name, address, phoneNumber, email, taxID) {
+	async 'company.info'(name, address, phoneNumber, email, taxID) {
 		console.log('Successfully ran [company.info]');
 
 		if (!Meteor.userId()) {
@@ -48,7 +48,7 @@ Meteor.methods({
 		check(email, String);
 		check(taxID, String);
 
-		const companyInfoExists = Settings.findOne({ _id: 'companyInfo' });
+		const companyInfoExists = await Settings.findOneAsync({ _id: 'companyInfo' });
 		if (companyInfoExists) {
 			if (address) {
 				Settings.update(
@@ -90,7 +90,7 @@ Meteor.methods({
 			});
 		}
 	},
-	'company.socialMedia'(facebook, twitter, google, instagram, tiktok) {
+	async 'company.socialMedia'(facebook, twitter, google, instagram, tiktok) {
 		console.log('Successfully ran [company.socialMedia]');
 
 		if (!Meteor.userId()) {
@@ -103,7 +103,7 @@ Meteor.methods({
 		check(instagram, String);
 		check(tiktok, String);
 
-		const companySocialMediaExists = Settings.findOne({ _id: 'socialMedia' });
+		const companySocialMediaExists = await Settings.findOneAsync({ _id: 'socialMedia' });
 		if (companySocialMediaExists) {
 			Settings.update(
 				{ _id: 'socialMedia' },
@@ -132,14 +132,14 @@ Meteor.methods({
 			});
 		}
 	},
-	'upload.aboutUsImageSettings'(fileObject) {
+	async 'upload.aboutUsImageSettings'(fileObject) {
 		console.log('Ran Method [upload.aboutUsImage]');
 
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('not-authorized');
 		}
 
-		const aboutUsImages = Settings.findOne({ _id: 'aboutUsImages' });
+		const aboutUsImages = await Settings.findOneAsync({ _id: 'aboutUsImages' });
 		if (typeof aboutUsImages === 'undefined') {
 			Settings.insert({ _id: 'aboutUsImages' });
 

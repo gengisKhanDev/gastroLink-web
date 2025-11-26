@@ -8,7 +8,7 @@ import { Random } from 'meteor/random';
 const createdBy = require('../../startup/server/created-by.js');
 
 Meteor.methods({
-	'invite.user'(firstName, lastName, roleID, email) {
+	async 'invite.user'(firstName, lastName, roleID, email) {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('not-authorized');
 		}
@@ -21,13 +21,13 @@ Meteor.methods({
 		check(email, String);
 
 		//check if email exists in DB
-		const emailExists = Users.findOne({ 'emails.address': email });
+		const emailExists = await Users.findOneAsync({ 'emails.address': email });
 		if (emailExists) {
 			throw new Meteor.Error(403, { message: 'This email is already used' });
 		}
 
 		let roleObj = {};
-		const roles = Settings.findOne({ _id: 'roles' }).roles;
+		const roles = (await Settings.findOneAsync({ _id: 'roles' })).roles;
 
 		roles.forEach(function (role) {
 			if (role.id === roleID) {
@@ -53,14 +53,14 @@ Meteor.methods({
 		console.log(id);
 		Accounts.sendEnrollmentEmail(id, email);
 	},
-	'check.userRole'(email) {
+	async 'check.userRole'(email) {
 		console.log('Ran Method [check.userRole]');
 
 		check(email, String);
 
 		email = email.toLowerCase();
 
-		const thisUser = Users.findOne({
+		const thisUser = await Users.findOneAsync({
 			'emails.address': email,
 		});
 
@@ -83,7 +83,7 @@ Meteor.methods({
 			throw new Meteor.Error('no-role', "You don't have a role assigned!");
 		}
 	},
-	'public.invite.user'(firstName, lastName, dob, email) {
+	async 'public.invite.user'(firstName, lastName, dob, email) {
 		console.log('Ran Method [invite.user]');
 
 		check(firstName, String);
@@ -92,12 +92,12 @@ Meteor.methods({
 		check(email, String);
 
 		//check if email exists in DB
-		const emailExists = Users.findOne({ 'emails.address': email });
+		const emailExists = await Users.findOneAsync({ 'emails.address': email });
 		if (emailExists) {
 			throw new Meteor.Error(403, { message: 'This email is already used' });
 		}
 
-		const userRoles = Settings.findOne({ _id: 'roles' }).roles;
+		const userRoles = (await Settings.findOneAsync({ _id: 'roles' })).roles;
 		let thisUserRole = {};
 		userRoles.forEach((userRole, index) => {
 			if (userRole.name === 'User') {
@@ -121,7 +121,7 @@ Meteor.methods({
 
 		Accounts.sendEnrollmentEmail(id, email);
 	},
-	'member.invite.user'(firstName, lastName, email) {
+	async 'member.invite.user'(firstName, lastName, email) {
 		console.log('Ran Method [invite.user]');
 
 		check(firstName, String);
@@ -129,12 +129,12 @@ Meteor.methods({
 		check(email, String);
 
 		//check if email exists in DB
-		const emailExists = Users.findOne({ 'emails.address': email });
+		const emailExists = await Users.findOneAsync({ 'emails.address': email });
 		if (emailExists) {
 			throw new Meteor.Error(403, { message: 'This email is already used' });
 		}
 
-		const userRoles = Settings.findOne({ _id: 'roles' }).roles;
+		const userRoles = (await Settings.findOneAsync({ _id: 'roles' })).roles;
 		let thisUserRole = {};
 		userRoles.forEach((userRole, index) => {
 			if (userRole.name === 'Employee') {
@@ -156,7 +156,7 @@ Meteor.methods({
 
 		Accounts.sendEnrollmentEmail(id, email);
 	},
-	'user.get'(id) {
+	async 'user.get'(id) {
 		console.log('Ran Method [user.get]');
 
 		if (!Meteor.userId()) {
@@ -165,9 +165,9 @@ Meteor.methods({
 
 		check(id, String);
 
-		return Users.findOne({ _id: id });
+		return await Users.findOneAsync({ _id: id });
 	},
-	'edit.user-admin'(id, firstName, lastName) {
+	async 'edit.user-admin'(id, firstName, lastName) {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('not-authorized');
 		}
@@ -176,7 +176,7 @@ Meteor.methods({
 		check(firstName, String);
 		check(lastName, String);
 
-		const userRoles = Settings.findOne({ _id: 'roles' }).roles;
+		const userRoles = await Settings.findOneAsync({ _id: 'roles' }).roles;
 		let thisUserRole = {};
 		userRoles.forEach((userRole, index) => {
 			if (userRole.name === 'Admin') {
@@ -198,12 +198,12 @@ Meteor.methods({
 			},
 		);
 	},
-	'create.review'(id, stars, review) {
+	async 'create.review'(id, stars, review) {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('Please Create Account For Review');
 		}
 
-		const businessReview = Business.findOne({ _id: id });
+		const businessReview = await Business.findOneAsync({ _id: id });
 
 		let thisBusiness = {};
 		thisBusiness = {
