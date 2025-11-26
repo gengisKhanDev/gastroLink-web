@@ -3,7 +3,6 @@
 
 // Vamos a dejar tu lógica de seeds casi igual, solo cambiando esa parte y eliminando `os` + `getLocalIP`:
 
-// imports/startup/server/fixtures.js
 import { Meteor } from "meteor/meteor";
 import { Random } from "meteor/random";
 import { Accounts } from "meteor/accounts-base";
@@ -20,7 +19,7 @@ Meteor.startup(async () => {
 		const adminId = await Accounts.createUserAsync({
 			username: "admin",
 			email: "admin@admin.com",
-			password: "lJ1tdvewYbht4CsYP8IKmkiJBXI2eNo", // tu password original
+			password: "lJ1tdvewYbht4CsYP8IKmkiJBXI2eNo",
 			createdAt: new Date(),
 			profile: {
 				firstName: "Super",
