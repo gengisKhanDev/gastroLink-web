@@ -3,10 +3,18 @@ import './system-settings.html';
 import { Settings } from '../../../../api/settings/settings';
 
 Template.admin_system_settings.onCreated(function () {
+	const instance = this;
+
 	document.title = 'Gastrolink - System Settings';
-	Tracker.autorun(() => {
+
+	// Autorun ligado a la instancia del template
+	instance.autorun(() => {
 		checkUserRole(['Super Admin', 'Admin', 'Employee']);
-		this.subscribe('settings.all');
+
+		// La suscripción también queda ligada a la vida del template
+		instance.subscribe('settings.all');
+
+		// Si quieres seguir usando Session:
 		if (this.subscriptionsReady()) {
 			Session.set('waiver', Settings.findOne({ _id: 'waiver' }));
 		}
@@ -49,7 +57,7 @@ Template.admin_system_settings.helpers({
 		}
 	},
 	aboutUsImages() {
-		return Settings.findOne({ _id: 'aboutUsImages' }).images;
+		return Settings.findOne({ _id: 'aboutUsImages' })?.images;
 	},
 	waiver() {
 		return Settings.findOne({ _id: 'waiver' });

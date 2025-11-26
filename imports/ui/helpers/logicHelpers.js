@@ -25,19 +25,18 @@ Template.registerHelper('$exists', (val) => val !== undefined && val !== null);
 Template.registerHelper('$mapped', function (arr, extended) {
 	const useExtended = !!extended;
 
-	// Aceptar tanto array como cursor
+	// Si viene null/undefined → devolver array vacío silencioso
+	if (!arr) return [];
+
+	// Si es cursor → convertir
+	if (arr && typeof arr.fetch === 'function') {
+		arr = arr.fetch();
+	}
+
+	// Si no es array → evitar warning repetitivo
 	if (!Array.isArray(arr)) {
-		try {
-			if (arr && typeof arr.fetch === 'function') {
-				arr = arr.fetch();
-			} else {
-				console.warn('$mapped: expected array or cursor');
-				return [];
-			}
-		} catch (e) {
-			console.error('Error in $mapped helper:', e);
-			return [];
-		}
+		console.warn('$mapped: expected array or cursor but got:', typeof arr, arr);
+		return [];
 	}
 
 	const length = arr.length;

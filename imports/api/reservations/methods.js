@@ -1,7 +1,7 @@
 import { Business } from "../business/business.js";
 import { Reservations } from "./reservations.js";
 import dayjs from "dayjs";
-const createdBy = require("../../startup/server/created-by.js");
+import { createdBy } from '../../startup/server/created-by.js';
 
 // Helper: parsear "HH:mm" a un objeto dayjs del día actual
 function parseTimeToDayjs(timeString) {
@@ -30,7 +30,7 @@ Meteor.methods({
 			);
 		}
 
-		Reservations.insert({
+		await Reservations.insertAsync({
 			reservedDate: date,
 			startTime: startTime,
 			endTime: endTime,

@@ -2,100 +2,82 @@ import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 
 import { Settings } from './settings.js';
-
-const createdBy = require('../../startup/server/created-by.js');
+import { createdBy } from '../../startup/server/created-by.js';
 
 Meteor.methods({
-	'reservation.clear'() {
+	async 'reservation.clear'() {
 		console.log('Successfully ran [reservation.clear]');
 
-		Settings.remove({
-			_id: 'reservation',
-		});
+		await Settings.removeAsync({ _id: 'reservation' });
 	},
+
 	async 'reservation.update'(reservation) {
 		console.log('Successfully ran [reservation.update]');
 
 		check(reservation, Object);
 
 		const reservationExists = await Settings.findOneAsync({ _id: 'reservation' });
+
 		if (reservationExists) {
-			Settings.update(
+			await Settings.updateAsync(
 				{ _id: 'reservation' },
-				{
-					$set: {
-						reservation: reservation,
-					},
-				},
+				{ $set: { reservation } }
 			);
 		} else {
-			Settings.insert({
+			await Settings.insertAsync({
 				_id: 'reservation',
-				reservation: reservation,
+				reservation,
 			});
 		}
 	},
+
 	async 'company.info'(name, address, phoneNumber, email, taxID) {
 		console.log('Successfully ran [company.info]');
 
-		if (!Meteor.userId()) {
-			throw new Meteor.Error('not-authorized');
-		}
+		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
 
 		check(name, String);
-		// check(address, Object);
 		check(phoneNumber, String);
 		check(email, String);
 		check(taxID, String);
 
 		const companyInfoExists = await Settings.findOneAsync({ _id: 'companyInfo' });
+
+		const creator = await createdBy.getUser(Meteor.userId());
+
 		if (companyInfoExists) {
-			if (address) {
-				Settings.update(
-					{ _id: 'companyInfo' },
-					{
-						$set: {
-							name: name,
-							address: address,
-							phoneNumber: phoneNumber,
-							email: email,
-							taxID: taxID,
-						},
+			await Settings.updateAsync(
+				{ _id: 'companyInfo' },
+				{
+					$set: {
+						name,
+						address,
+						phoneNumber,
+						email,
+						taxID,
+						createdBy: creator,
+						createdAt: new Date(),
 					},
-				);
-			} else {
-				Settings.update(
-					{ _id: 'companyInfo' },
-					{
-						$set: {
-							name: name,
-							address: address,
-							phoneNumber: phoneNumber,
-							email: email,
-							taxID: taxID,
-						},
-					},
-				);
-			}
+				}
+			);
 		} else {
-			Settings.insert({
+			await Settings.insertAsync({
 				_id: 'companyInfo',
-				name: name,
-				address: address,
-				phoneNumber: phoneNumber,
-				email: email,
-				taxID: taxID,
-				createdBy: createdBy.getUser(Meteor.userId()),
+				name,
+				address,
+				phoneNumber,
+				email,
+				taxID,
+				createdBy: creator,
 				createdAt: new Date(),
 			});
 		}
 	},
+
 	async 'company.socialMedia'(facebook, twitter, google, instagram, tiktok) {
 		console.log('Successfully ran [company.socialMedia]');
 
-		if (!Meteor.userId()) {
-			throw new Meteor.Error('not-authorized');
-		}
+		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
 
 		check(facebook, String);
 		check(twitter, String);
@@ -103,97 +85,81 @@ Meteor.methods({
 		check(instagram, String);
 		check(tiktok, String);
 
-		const companySocialMediaExists = await Settings.findOneAsync({ _id: 'socialMedia' });
-		if (companySocialMediaExists) {
-			Settings.update(
+		const creator = await createdBy.getUser(Meteor.userId());
+
+		const exists = await Settings.findOneAsync({ _id: 'socialMedia' });
+
+		if (exists) {
+			await Settings.updateAsync(
 				{ _id: 'socialMedia' },
 				{
 					$set: {
-						facebook: facebook,
-						twitter: twitter,
-						google: google,
-						instagram: instagram,
-						tiktok: tiktok,
-						createdBy: createdBy.getUser(Meteor.userId()),
+						facebook,
+						twitter,
+						google,
+						instagram,
+						tiktok,
+						createdBy: creator,
 						createdAt: new Date(),
 					},
-				},
+				}
 			);
 		} else {
-			Settings.insert({
+			await Settings.insertAsync({
 				_id: 'socialMedia',
-				facebook: facebook,
-				twitter: twitter,
-				google: google,
-				instagram: instagram,
-				tiktok: tiktok,
-				createdBy: createdBy.getUser(Meteor.userId()),
+				facebook,
+				twitter,
+				google,
+				instagram,
+				tiktok,
+				createdBy: creator,
 				createdAt: new Date(),
 			});
 		}
 	},
+
 	async 'upload.aboutUsImageSettings'(fileObject) {
 		console.log('Ran Method [upload.aboutUsImage]');
 
-		if (!Meteor.userId()) {
-			throw new Meteor.Error('not-authorized');
+		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
+
+		const creator = await createdBy.getUser(Meteor.userId());
+
+		let aboutUsImages = await Settings.findOneAsync({ _id: 'aboutUsImages' });
+
+		if (!aboutUsImages) {
+			await Settings.insertAsync({ _id: 'aboutUsImages', images: [] });
 		}
 
-		const aboutUsImages = await Settings.findOneAsync({ _id: 'aboutUsImages' });
-		if (typeof aboutUsImages === 'undefined') {
-			Settings.insert({ _id: 'aboutUsImages' });
-
-			Settings.update(
-				{ _id: 'aboutUsImages' },
-				{
-					$push: {
-						images: {
-							id: Random.id(),
-							name: fileObject.name,
-							type: fileObject.type,
-							base64: fileObject.base64,
-							createdBy: createdBy.getUser(Meteor.userId()),
-							createdAt: new Date(),
-						},
+		await Settings.updateAsync(
+			{ _id: 'aboutUsImages' },
+			{
+				$push: {
+					images: {
+						id: Random.id(),
+						name: fileObject.name,
+						type: fileObject.type,
+						base64: fileObject.base64,
+						createdBy: creator,
+						createdAt: new Date(),
 					},
 				},
-			);
-		} else {
-			Settings.update(
-				{ _id: 'aboutUsImages' },
-				{
-					$push: {
-						images: {
-							id: Random.id(),
-							name: fileObject.name,
-							type: fileObject.type,
-							base64: fileObject.base64,
-							createdBy: createdBy.getUser(Meteor.userId()),
-							createdAt: new Date(),
-						},
-					},
-				},
-			);
-		}
+			}
+		);
 	},
-	'delete.aboutUsImage'(id) {
+
+	async 'delete.aboutUsImage'(id) {
 		console.log('Ran Method [delete.aboutUsImage]');
 
-		if (!Meteor.userId()) {
-			throw new Meteor.Error('not-authorized');
-		}
+		if (!Meteor.userId()) throw new Meteor.Error('not-authorized');
 
 		check(id, String);
 
-		Settings.update(
+		await Settings.updateAsync(
 			{ _id: 'aboutUsImages' },
 			{
-				$pull: {
-					images: {
-						id: id,
-					},
-				},
-			},
+				$pull: { images: { id } },
+			}
 		);
 	},
 });

@@ -1,6 +1,7 @@
 import './edit.html';
 
 import { Users } from '../../../../api/users/users.js';
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Session.set('thisUser', {});
 

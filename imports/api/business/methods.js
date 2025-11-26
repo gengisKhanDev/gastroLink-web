@@ -1,13 +1,12 @@
-// import { Users } from "../../api/users/users.js";
 import { Users } from '../users/users.js';
 import { Business } from './business.js';
 import { Random } from 'meteor/random';
 import { check } from 'meteor/check';
 
-const createdBy = require('../../startup/server/created-by.js');
+import { createdBy } from '../../startup/server/created-by.js';
 
 Meteor.methods({
-	'create.business'(
+	async 'create.business'(
 		id,
 		businessName,
 		businessAddress,
@@ -21,8 +20,7 @@ Meteor.methods({
 		}
 
 		const businessID = Random.id();
-		console.log(Meteor.userId());
-		Users.update(
+		await Users.updateAsync(
 			{ _id: id },
 			{
 				$set: {
@@ -34,7 +32,7 @@ Meteor.methods({
 			},
 		);
 
-		return Business.insert({
+		return await Business.insertAsync({
 			_id: businessID,
 			businessName: businessName,
 			businessAddress: businessAddress,
@@ -49,7 +47,7 @@ Meteor.methods({
 			createdAt: new Date(),
 		});
 	},
-	'business.addDescriptionHTML'(id, data) {
+	async 'business.addDescriptionHTML'(id, data) {
 		console.log('Ran Method [business.addDescriptionHTML]');
 
 		if (!Meteor.userId()) {
@@ -59,7 +57,7 @@ Meteor.methods({
 		check(id, String);
 		check(data, String);
 
-		Business.update(
+		await Business.updateAsync(
 			{ _id: id },
 			{
 				$set: {
@@ -84,7 +82,7 @@ Meteor.methods({
 
 		const imageID = Random.id();
 		const thisBusiness = await Business.findOneAsync({ _id: id });
-		Business.update(
+		await Business.updateAsync(
 			{ _id: id },
 			{
 				$push: {
@@ -101,7 +99,7 @@ Meteor.methods({
 		);
 
 		if (typeof thisBusiness.images === 'undefined' || thisBusiness.images.length === 0) {
-			Business.update(
+			await Business.updateAsync(
 				{ _id: id },
 				{
 					$set: {
@@ -111,7 +109,7 @@ Meteor.methods({
 			);
 		}
 	},
-	'business.defaultImage'(id, imageID) {
+	async 'business.defaultImage'(id, imageID) {
 		console.log('Ran Method [Business.defaultImage]');
 
 		if (!Meteor.userId()) {
@@ -121,7 +119,7 @@ Meteor.methods({
 		check(id, String);
 		check(imageID, String);
 
-		Business.update(
+		await Business.updateAsync(
 			{ _id: id },
 			{
 				$set: {
@@ -130,7 +128,7 @@ Meteor.methods({
 			},
 		);
 	},
-	'update.businessInfo'(
+	async 'update.businessInfo'(
 		id,
 		businessName,
 		businessAddress,
@@ -145,7 +143,7 @@ Meteor.methods({
 
 		check(maxCapacity, Number);
 
-		return Business.update(
+		return await Business.updateAsync(
 			{ _id: id },
 			{
 				$set: {
@@ -162,8 +160,6 @@ Meteor.methods({
 	async 'business.deleteImage'(id, imageID) {
 		console.log('Ran Method [business.deleteImage]');
 
-		console.log(id);
-		console.log(imageID);
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('not-authorized');
 		}
@@ -176,7 +172,7 @@ Meteor.methods({
 			throw new Meteor.Error('default-image', "Can't delete default image!");
 		}
 
-		Business.update(
+		await Business.updateAsync(
 			{ _id: id },
 			{
 				$pull: {

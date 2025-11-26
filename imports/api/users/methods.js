@@ -5,7 +5,7 @@ import { Business } from '../business/business.js';
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 
-const createdBy = require('../../startup/server/created-by.js');
+import { createdBy } from '../../startup/server/created-by.js';
 
 Meteor.methods({
 	async 'invite.user'(firstName, lastName, roleID, email) {
@@ -185,7 +185,7 @@ Meteor.methods({
 			}
 		});
 
-		Users.update(
+		await Users.updateAsync(
 			{ _id: id },
 			{
 				$set: {
@@ -222,7 +222,7 @@ Meteor.methods({
 
 		let averageStars = totalStars / totalReviews;
 
-		Users.update(
+		await Users.updateAsync(
 			{ _id: Meteor.userId() },
 			{
 				$push: {
@@ -236,7 +236,7 @@ Meteor.methods({
 			},
 		);
 
-		Business.update(
+		await Business.updateAsync(
 			{ _id: id },
 			{
 				$push: {
