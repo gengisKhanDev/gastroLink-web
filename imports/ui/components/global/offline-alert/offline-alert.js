@@ -1,18 +1,18 @@
-import './offline-alert.html';
+import "./offline-alert.html";
+import { Meteor } from "meteor/meteor";
 
 Template.offline_alert.helpers({
 	isOffline() {
-		if (Meteor.status().status == 'connected' || Meteor.status().status == 'connecting') {
-			$(document).ready(function () {
-				$(':button').prop('disabled', false);
-			});
-			return false;
-		} else {
-			$(document).ready(function () {
-				$(':button').prop('disabled', true);
-			});
+		const status = Meteor.status().status;
+		const isOnline = status === "connected" || status === "connecting";
 
-			return true;
-		}
+		// Habilitar / deshabilitar todos los botones usando DOM nativo
+		const buttons = document.querySelectorAll("button");
+		buttons.forEach((btn) => {
+			btn.disabled = !isOnline;
+		});
+
+		// El helper devuelve true cuando está OFFLINE
+		return !isOnline;
 	},
 });

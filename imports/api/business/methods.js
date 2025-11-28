@@ -1,7 +1,7 @@
 import { Users } from '../users/users.js';
 import { Business } from './business.js';
 import { Random } from 'meteor/random';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 
 import { createdBy } from '../../startup/server/created-by.js';
 
@@ -137,26 +137,49 @@ Meteor.methods({
 		maxCapacity,
 		description,
 	) {
-		if (!Meteor.userId()) {
+		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
 
+		check(id, String);
+		check(businessName, String);
+		check(phoneNumber, String);
+		check(businessEmail, String);
 		check(maxCapacity, Number);
+		check(description, String);
+		// businessAddress puede venir undefined/null/objeto
+		check(businessAddress, Match.Maybe(Object));
 
-		return await Business.updateAsync(
+		// Campos que SIEMPRE se actualizan
+		const updateFields = {
+			businessName,
+			phoneNumber,
+			businessEmail,
+			maxCapacity,
+			description,
+		};
+
+		// ✅ Solo pisamos businessAddress si viene "bien formada"
+		const isValidBusinessAddress =
+			businessAddress &&
+			typeof businessAddress === 'object' &&
+			typeof businessAddress.formatted_address === 'string' &&
+			businessAddress.geometry &&
+			typeof businessAddress.geometry.lat === 'number' &&
+			typeof businessAddress.geometry.lng === 'number';
+
+		if (isValidBusinessAddress) {
+			updateFields.businessAddress = businessAddress;
+		}
+
+		return Business.updateAsync(
 			{ _id: id },
 			{
-				$set: {
-					businessName: businessName,
-					businessAddress: businessAddress,
-					phoneNumber: phoneNumber,
-					businessEmail: businessEmail,
-					maxCapacity: maxCapacity,
-					description: description,
-				},
+				$set: updateFields,
 			},
 		);
 	},
+
 	async 'business.deleteImage'(id, imageID) {
 		console.log('Ran Method [business.deleteImage]');
 

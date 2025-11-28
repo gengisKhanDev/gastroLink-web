@@ -1,58 +1,80 @@
+const updateDropZoneText = (text) => {
+	const el = document.querySelector("#dropZone h4");
+	if (el) el.innerHTML = text;
+};
+
 uploadImage = (obj, event, callback) => {
 	const files = event.target.files;
+	const originalText = obj.text || "Drag and Drop Image";
 
-	$('#dropZone h4').html(`<i class="fa fa-spin fa-spinner" aria-hidden="true"></i> Uploading...`);
+	updateDropZoneText(`<i class="fa fa-spin fa-spinner" aria-hidden="true"></i> Uploading...`);
 
 	if (files.length >= 2) {
-		yoloAlert('error', 'You can only upload one file!');
-		$('#dropZone h4').html(obj.text);
+		yoloAlert("error", "You can only upload one file!");
+		updateDropZoneText(originalText);
 		return;
 	}
 
-	if (event.target.files[0].size >= 20485760) {
-		yoloAlert('error', 'File size too big!');
-		$('#dropZone h4').html(obj.text);
+	const file = files[0];
+	if (!file) {
+		updateDropZoneText(originalText);
 		return;
 	}
 
-	if (window.FileReader) {
-		const reader = new FileReader();
-		reader.readAsDataURL(files[0]);
-		reader.onload = function (file) {
-			if (obj.width && obj.height) {
-				var image = new Image();
-				image.src = reader.result;
-				image.onload = function () {
-					if (this.width != obj.width && this.height != obj.height) {
-						yoloAlert(
-							'error',
-							`Incorrect resolution, please upload a file with ${obj.width}px x ${obj.height}px`,
-						);
-						return;
-					} else {
-						$('#dropZone h4').html(obj.text);
-						callback({
-							base64: reader.result,
-							type: files[0].type,
-							name: files[0].name,
-						});
-					}
-				};
-			} else {
-				$('#dropZone h4').html(obj.text);
-				callback({
-					base64: reader.result,
-					type: files[0].type,
-					name: files[0].name,
-				});
-			}
-		};
-		reader.onerror = function (error) {
-			console.log(error);
-			$('#dropZone h4').html(obj.text);
-			yoloAlert('error');
-		};
-	} else {
-		yoloAlert('error', 'FileReader is not supported in this browser.');
+	if (file.size >= 20485760) {
+		yoloAlert("error", "File size too big!");
+		updateDropZoneText(originalText);
+		return;
 	}
+
+	if (!window.FileReader) {
+		yoloAlert("error", "FileReader is not supported in this browser.");
+		updateDropZoneText(originalText);
+		return;
+	}
+
+	const reader = new FileReader();
+
+	reader.onload = function () {
+		const result = reader.result;
+
+		const finish = () => {
+			updateDropZoneText(originalText);
+			callback({
+				base64: result,
+				type: file.type,
+				name: file.name,
+			});
+		};
+
+		if (obj.width && obj.height) {
+			const image = new Image();
+			image.src = result;
+			image.onload = function () {
+				if (this.width !== obj.width || this.height !== obj.height) {
+					yoloAlert(
+						"error",
+						`Incorrect resolution, please upload a file with ${obj.width}px x ${obj.height}px`,
+					);
+					updateDropZoneText(originalText);
+					return;
+				}
+				finish();
+			};
+			image.onerror = function () {
+				yoloAlert("error", "Could not load image.");
+				updateDropZoneText(originalText);
+			};
+		} else {
+			finish();
+		}
+	};
+
+	reader.onerror = function (error) {
+		console.error(error);
+		updateDropZoneText(originalText);
+		yoloAlert("error");
+	};
+
+	reader.readAsDataURL(file);
 };

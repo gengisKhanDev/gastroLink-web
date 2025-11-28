@@ -1,31 +1,28 @@
 <template name="member_sidebar">
 	<div class="member-sidebar">
-		<footer class="fixed-bottom bg-white border-top">
-			<div class="d-flex justify-content-around">
-				<div class="footer-item">
-					<a href="/member/my-account" class="footer-link">
-						<i class="icon fas fa-user"></i>
-						<span class="tooltip-text">Inicio</span>
+		<footer class="member-bottom-nav fixed-bottom">
+			<div class="container-fluid px-0">
+				<nav class="nav nav-pills nav-justified member-bottom-nav__inner">
+					<a href="/member/my-account" class="nav-link member-bottom-nav__link">
+						<i class="fas fa-user nav-icon"></i>
+						<span class="nav-label">Inicio</span>
 					</a>
-				</div>
-				<div class="footer-item">
-					<a href="/member/edit-page" class="footer-link">
-						<i class="fas fa-edit"></i>
-						<span class="tooltip-text">Edit Page</span>
+
+					<a href="/member/edit-page" class="nav-link member-bottom-nav__link">
+						<i class="fas fa-edit nav-icon"></i>
+						<span class="nav-label">Editar</span>
 					</a>
-				</div>
-				<div class="footer-item">
-					<a href="/member/reservations" class="footer-link">
-						<i class="fas fa-book"></i>
-						<span class="tooltip-text">Reservations</span>
+
+					<a href="/member/reservations" class="nav-link member-bottom-nav__link">
+						<i class="fas fa-book nav-icon"></i>
+						<span class="nav-label">Reservas</span>
 					</a>
-				</div>
-				<div class="footer-item">
-					<a href="/member/settings" class="footer-link">
-						<i class="icon fas fa-cogs"></i>
-						<span class="tooltip-text">Settings</span>
+
+					<a href="/member/settings" class="nav-link member-bottom-nav__link">
+						<i class="fas fa-cogs nav-icon"></i>
+						<span class="nav-label">Ajustes</span>
 					</a>
-				</div>
+				</nav>
 			</div>
 		</footer>
 	</div>

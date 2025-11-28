@@ -1,118 +1,122 @@
-import './reset-password.html';
+import "./reset-password.html";
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
+
+let isPasswordValid = false;
 
 Template.reset_password.onCreated(function () {
-	document.title = 'Gastrolink  - Reset Password';
+	document.title = "  - Reset Password";
 });
 
+// función reutilizable para validar password y actualizar DOM
+const validatePasswordStrength = (password) => {
+	const lengthEl = document.getElementById("length");
+	const letterEl = document.getElementById("letter");
+	const capitalEl = document.getElementById("capital");
+	const numberEl = document.getElementById("number");
+	const specialEl = document.getElementById("special");
+
+	const hasMinLength = password.length >= 8;
+	const hasLower = /[a-z]/.test(password);
+	const hasUpper = /[A-Z]/.test(password);
+	const hasNumber = /\d/.test(password);
+	const hasSpecial = /[$&+,:;=?@#|'<>.^*()%!-]/.test(password);
+
+	// helper chico para cambiar clases
+	const setValid = (el, valid) => {
+		if (!el) return;
+		if (valid) {
+			el.classList.remove("invalid");
+			el.classList.add("valid");
+		} else {
+			el.classList.remove("valid");
+			el.classList.add("invalid");
+		}
+	};
+
+	setValid(lengthEl, hasMinLength);
+	setValid(letterEl, hasLower);
+	setValid(capitalEl, hasUpper);
+	setValid(numberEl, hasNumber);
+	setValid(specialEl, hasSpecial);
+
+	isPasswordValid = hasMinLength && hasLower && hasUpper && hasNumber && hasSpecial;
+};
+
 Template.reset_password.events({
-	'click .input-group-text'(event) {
-		const id = $(event.currentTarget).data('id');
+	"click .input-group-text"(event) {
+		const id = event.currentTarget.dataset.id;
 
-		if ($(`#showHidePassword input[data-id="${id}"]`).attr('type') == 'text') {
-			$(`#showHidePassword input[data-id="${id}"]`).attr('type', 'password');
-			$(`#showHidePassword i[data-id="${id}"]`).addClass('fa-eye-slash');
-			$(`#showHidePassword i[data-id="${id}"]`).removeClass('fa-eye');
-		} else if ($(`#showHidePassword input[data-id="${id}"]`).attr('type') == 'password') {
-			$(`#showHidePassword input[data-id="${id}"]`).attr('type', 'text');
-			$(`#showHidePassword i[data-id="${id}"]`).removeClass('fa-eye-slash');
-			$(`#showHidePassword i[data-id="${id}"]`).addClass('fa-eye');
-		}
+		const input = document.querySelector(`#showHidePassword input[data-id="${id}"]`);
+		const icon = document.querySelector(`#showHidePassword i[data-id="${id}"]`);
+
+		if (!input || !icon) return;
+
+		const isText = input.type === "text";
+
+		input.type = isText ? "password" : "text";
+		icon.classList.toggle("fa-eye-slash", !isText);
+		icon.classList.toggle("fa-eye", isText);
 	},
-	'keyup input'(event) {
-		// Improve this
-		const input = $('input[id="password"]').val();
 
-		if (input.length < 8) {
-			isPasswordValid = false;
-			$('#length').removeClass('valid').addClass('invalid');
-		} else {
-			isPasswordValid = true;
-			$('#length').removeClass('invalid').addClass('valid');
-		}
-
-		if (input.match(/[a-z]/)) {
-			isPasswordValid = true;
-			$('#letter').removeClass('invalid').addClass('valid');
-		} else {
-			isPasswordValid = false;
-			$('#letter').removeClass('valid').addClass('invalid');
-		}
-
-		if (input.match(/[A-Z]/)) {
-			isPasswordValid = false;
-			$('#capital').removeClass('invalid').addClass('valid');
-		} else {
-			isPasswordValid = true;
-			$('#capital').removeClass('valid').addClass('invalid');
-		}
-
-		if (input.match(/\d/)) {
-			isPasswordValid = true;
-			$('#number').removeClass('invalid').addClass('valid');
-		} else {
-			isPasswordValid = false;
-			$('#number').removeClass('valid').addClass('invalid');
-		}
-
-		if (input.match(/[$&+,:;=?@#|'<>.^*()%!-]/)) {
-			isPasswordValid = true;
-			$('#special').removeClass('invalid').addClass('valid');
-		} else {
-			isPasswordValid = false;
-			$('#special').removeClass('valid').addClass('invalid');
-		}
+	"keyup input"(event) {
+		const passwordInput = document.getElementById("password");
+		const value = passwordInput ? passwordInput.value : "";
+		validatePasswordStrength(value);
 	},
-	'submit #resetPassword'(event) {
+
+	"submit #resetPassword"(event) {
 		event.preventDefault();
 
 		const password = event.target.password.value;
 		const confirmPassword = event.target.confirmPassword.value;
+		const formErrorElement = document.getElementById("formError");
 
 		disableBtn(`button[type="submit"]`, true);
 
-		//Validations
+		// Validaciones
 		if (password !== confirmPassword) {
-			$('#formError').html('Passwords do not match');
-			disableBtn(`button[type="submit"]`, false, 'Passwords do not match');
-		} else {
-			$('#formError').html('');
-			disableBtn(`button[type="submit"]`, false, 'Confirm');
-
-			Accounts.resetPassword(FlowRouter.getParam('token'), password, (error) => {
-				if (error) {
-					console.log(error);
-					disableBtn(`button[type="submit"]`, false, 'Reset Password');
-					if (error.message === 'Token expired [403]') {
-						yoloAlert('error', error.reason);
-					} else {
-						yoloAlert('error');
-					}
-					disableBtn(`button[type="submit"]`, false, 'Reset Password');
-				} else {
-					disableBtn(`button[type="submit"]`, false, 'Reset Password');
-					sourAlert(
-						{
-							type: 'success',
-							title: 'Success',
-						},
-						function (result) {
-							if (result) {
-								if (Meteor.user().profile.role.name === 'User') {
-									FlowRouter.go('/user/my-account');
-									setTimeout(() => {
-										location.reload();
-									}, 1000);
-								} else {
-									FlowRouter.go('/admin/my-account');
-									setTimeout(() => {
-										location.reload();
-									}, 1000);
-								}
-							}
-						},
-					);
-				}
-			});
+			if (formErrorElement) {
+				formErrorElement.textContent = "Passwords do not match";
+			}
+			disableBtn(`button[type="submit"]`, false, "Reset Password");
+			return;
 		}
+
+		if (!isPasswordValid) {
+			if (formErrorElement) {
+				formErrorElement.textContent = "Missing password validation";
+			}
+			disableBtn(`button[type="submit"]`, false, "Reset Password");
+			return;
+		}
+
+		if (formErrorElement) {
+			formErrorElement.textContent = "";
+		}
+
+		Accounts.resetPassword(FlowRouter.getParam("token"), password, (error) => {
+			if (error) {
+				console.log(error);
+				if (error.message === "Token expired [403]") {
+					yoloAlert("error", "Token Expired");
+				} else {
+					yoloAlert("error");
+				}
+				disableBtn(`button[type="submit"]`, false, "Reset Password");
+			} else {
+				disableBtn(`button[type="submit"]`, false, "Reset Password");
+				sourAlert(
+					{
+						type: "success",
+						title: "Success",
+					},
+					function (result) {
+						if (result) {
+							FlowRouter.go("/my-account");
+						}
+					},
+				);
+			}
+		});
 	},
 });

@@ -1,4 +1,5 @@
 import './forgot-password.html';
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Template.forgot_password.onCreated(function () {
 	document.title = 'Gastrolink - Forgot Password';

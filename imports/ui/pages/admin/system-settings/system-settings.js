@@ -135,7 +135,7 @@ Template.admin_system_settings.events({
 	},
 	'click .delete-about-us-image'(event) {
 		console.log(event.target);
-		const id = $(event.target).attr('data-id');
+		const id = event.currentTarget.getAttribute("data-id");
 
 		sourAlert(
 			{

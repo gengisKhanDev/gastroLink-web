@@ -8,7 +8,7 @@ Template.member_my_account.onCreated(function () {
 	});
 });
 
-Template.member_my_account.onRendered(function () {});
+Template.member_my_account.onRendered(function () { });
 
 Template.member_my_account.helpers({
 	business() {
@@ -44,4 +44,20 @@ Template.member_my_account.events({
 			}
 		});
 	},
+	'click #logout'() {
+		sourAlert(
+			{
+				type: 'question',
+				title: 'Log Out?',
+				okButtonText: 'Yes, Log Me Out',
+			},
+			function (result) {
+				if (result) {
+					Meteor.logout(() => {
+						location.reload();
+					});
+				}
+			},
+		);
+	}
 });

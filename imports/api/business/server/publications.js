@@ -28,8 +28,8 @@ if (Meteor.isServer) {
 			return [];
 		}
 	});
-	Meteor.publish('get.business.publicID', (id) => {
-		const slugEvent = Business.findOne({ id: id });
+	Meteor.publish('get.business.publicID', async (id) => {
+		const slugEvent = await Business.findOneAsync({ id: id });
 		if (slugEvent) {
 			return Business.find({ id: id });
 		} else {

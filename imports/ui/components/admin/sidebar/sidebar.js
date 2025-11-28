@@ -1,33 +1,44 @@
+// imports/ui/layouts/admin/sidebar.js
 import './sidebar.html';
+import { Template } from 'meteor/templating';
+import { Meteor } from 'meteor/meteor';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-Template.admin_sidebar.onCreated(function () {});
+Template.admin_sidebar.onCreated(function () { });
 
 Template.admin_sidebar.helpers({
 	isActiveRoute(routeName) {
-		if (routeName === FlowRouter.getRouteName()) {
-			return 'active';
-		}
+		return routeName === FlowRouter.getRouteName() ? 'active' : '';
 	},
 });
 
 Template.admin_sidebar.events({
 	'click .dropdown-toggle'(event) {
-		let arrowParent = $(event.target.parentElement);
-		if (typeof arrowParent !== 'undefined') {
-			$(arrowParent).toggleClass('show');
+		// Usamos currentTarget para evitar problemas si hay <i>, <span>, etc. dentro
+		const dropdownItem = event.currentTarget.parentElement;
+		if (dropdownItem) {
+			dropdownItem.classList.toggle('show');
 		}
 	},
-	'click #showSidebar'() {
-		if ($('.sidebar').hasClass('show')) {
-			$('.sidebar').removeClass('show');
-			$('#showSidebar').removeClass('toggled');
-			$('#showSidebar').html(`<i class="fas fa-chevron-right"></i>`);
+
+	'click #showSidebar'(event) {
+		const toggleBtn = event.currentTarget; // #showSidebar
+		const sidebar = document.querySelector('.sidebar');
+		if (!sidebar || !toggleBtn) return;
+
+		const isOpen = sidebar.classList.contains('show');
+
+		if (isOpen) {
+			sidebar.classList.remove('show');
+			toggleBtn.classList.remove('toggled');
+			toggleBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
 		} else {
-			$('.sidebar').addClass('show');
-			$('#showSidebar').addClass('toggled');
-			$('#showSidebar').html(`<i class="fas fa-chevron-left"></i>`);
+			sidebar.classList.add('show');
+			toggleBtn.classList.add('toggled');
+			toggleBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
 		}
 	},
+
 	'click #logout'() {
 		sourAlert(
 			{
@@ -35,7 +46,7 @@ Template.admin_sidebar.events({
 				title: 'Log Out?',
 				okButtonText: 'Yes, Log Me Out',
 			},
-			function (result) {
+			(result) => {
 				if (result) {
 					Meteor.logout(() => {
 						location.reload();

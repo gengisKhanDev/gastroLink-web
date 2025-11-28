@@ -1,3 +1,5 @@
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
+
 checkUserRole = (rolesArr, callback) => {
 	if (Meteor.user() !== undefined) {
 		if (Meteor.user()) {

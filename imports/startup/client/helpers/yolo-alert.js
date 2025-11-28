@@ -1,61 +1,59 @@
 yoloAlert = (type, text, timeout) => {
-	$('body .yolo-alert').remove();
+	// Elimina cualquier alerta anterior
+	const old = document.querySelector("body .yolo-alert");
+	if (old) old.remove();
 
-	$('body').prepend(`
-    <div class="yolo-alert" id="yoloAlert">
-      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-      <div class="yoloDiv">
-        <span class="text" id="text"></span>
-      </div>
+	const wrapper = document.createElement("div");
+	wrapper.className = "yolo-alert";
+	wrapper.id = "yoloAlert";
+	wrapper.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div class="yoloDiv">
+      <span class="text" id="text"></span>
     </div>
-  `);
+  `;
 
-	$('#yoloAlert').removeClass('success');
-	$('#yoloAlert').removeClass('error');
-	$('#yoloAlert').removeClass('warning');
+	document.body.prepend(wrapper);
 
-	$('#yoloAlert').addClass('success');
+	const textEl = wrapper.querySelector("#text");
+	const closeBtn = wrapper.querySelector(".close-btn");
 
-	let alertTimeout = 4000;
-	$(document).ready(function () {
-		switch (type) {
-			case 'success': {
-				$('#yoloAlert').addClass('success');
-				break;
-			}
-			case 'error': {
-				$('#yoloAlert').addClass('error');
-				break;
-			}
-			case 'warning': {
-				$('#yoloAlert').addClass('warning');
-				break;
-			}
-			case 'info': {
-				$('#yoloAlert').addClass('info');
-				break;
-			}
-			default: {
-				$('#yoloAlert').addClass('info');
-				break;
-			}
-		}
+	const alertTimeout = typeof timeout === "number" ? timeout : 4000;
+	const message = typeof text === "undefined" ? "Something went wrong..." : text;
 
-		if (timeout != undefined) {
-			alertTimeout = timeout;
-		}
-		if (typeof text === 'undefined') {
-			$('#yoloAlert #text').text('Something went wrong...');
-		} else {
-			$('#yoloAlert #text').text(text);
-		}
+	textEl.textContent = message;
 
-		$('#yoloAlert').show(function () {
-			setTimeout(function () {
-				$('#yoloAlert').fadeOut();
-				$('body #yoloAlert').remove();
-			}, alertTimeout);
-		});
+	wrapper.classList.remove("success", "error", "warning", "info");
+	switch (type) {
+		case "success":
+			wrapper.classList.add("success");
+			break;
+		case "error":
+			wrapper.classList.add("error");
+			break;
+		case "warning":
+			wrapper.classList.add("warning");
+			break;
+		case "info":
+		default:
+			wrapper.classList.add("info");
+			break;
+	}
+
+	const close = () => {
+		wrapper.classList.add("fade-out");
+		setTimeout(() => {
+			wrapper.remove();
+		}, 300);
+	};
+
+	closeBtn.addEventListener("click", () => {
+		close();
 	});
+
+	// Mostrar y programar auto-cierre
+	wrapper.style.display = "block";
+	setTimeout(() => {
+		close();
+	}, alertTimeout);
 };

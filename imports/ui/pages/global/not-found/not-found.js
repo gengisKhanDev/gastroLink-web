@@ -1,4 +1,5 @@
 import './not-found.html';
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Template.not_found.onCreated(function () {
 	document.title = 'Gastrolink - 404';

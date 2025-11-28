@@ -1,4 +1,5 @@
 import './navbar.html';
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Template.public_navbar.events({
 	'click #myAccount'() {
@@ -7,7 +8,6 @@ Template.public_navbar.events({
 				console.log(error);
 				yoloAlert('error');
 			} else {
-				console.log(result.profile.role.name);
 				if (result.profile.role.name === 'User') {
 					FlowRouter.go('/user/my-account');
 				} else if (result.profile.role.name === 'Admin') {

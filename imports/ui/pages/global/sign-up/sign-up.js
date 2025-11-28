@@ -1,4 +1,6 @@
 import './sign-up.html';
+import { Template } from 'meteor/templating';
+import { Meteor } from 'meteor/meteor';
 
 Template.global_sign_up.onCreated(function () {
 	document.title = 'Gastrolink  - Sign Up';
@@ -13,39 +15,49 @@ Template.global_sign_up.onRendered(function () {
 });
 
 Template.global_sign_up.events({
-	'submit #addUser'(event) {
+	'submit #addUser'(event, template) {
 		event.preventDefault();
 
-		const firstName = event.target.firstName.value;
-		const lastName = event.target.lastName.value;
-		const dob = new Date(event.target.dob.value);
-		const email = event.target.email.value;
+		const form = event.target;
+		const firstName = form.firstName.value;
+		const lastName = form.lastName.value;
+		const dob = new Date(form.dob.value);
+		const email = form.email.value;
 
 		disableBtn('#addUserBtn', true);
 
-		Meteor.call('public.invite.user', firstName, lastName, dob, email, function (error, result) {
+		Meteor.call('public.invite.user', firstName, lastName, dob, email, (error, result) => {
 			if (error) {
 				console.log(error);
 				if (error.error) {
-					yoloAlert('error', error.reason.message);
+					// Asumiendo que `error.reason` puede ser objeto o string
+					const message =
+						typeof error.reason === 'object' && error.reason?.message
+							? error.reason.message
+							: error.reason || 'There was an error';
+					yoloAlert('error', message);
 				} else {
 					yoloAlert('error');
 				}
 				disableBtn('#addUserBtn', false, "<i class='fas fa-plus-square'></i> Add");
 			} else {
-				setTimeout(function () {
-					document.getElementById('addUser').reset();
-					disableBtn('#addUserBtn', false, "<i class='fas fa-plus-square'></i> Add");
-					yoloAlert('success', 'Please check your email!');
-					$('#showEnroll').show();
-				}, 300);
+				form.reset();
+				disableBtn('#addUserBtn', false, "<i class='fas fa-plus-square'></i> Add");
+				yoloAlert('success', 'Please check your email!');
+
+				const enrollSection = document.getElementById('showEnroll');
+				if (enrollSection) {
+					enrollSection.style.display = 'block';
+				}
 			}
 		});
 	},
+
 	'submit #enrollhrf'(event) {
 		event.preventDefault();
-
 		const text = event.target.text.value;
-		window.location.href = text;
+		if (text) {
+			window.location.href = text;
+		}
 	},
 });

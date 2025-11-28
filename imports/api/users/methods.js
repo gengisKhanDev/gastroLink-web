@@ -8,50 +8,79 @@ import { Random } from 'meteor/random';
 import { createdBy } from '../../startup/server/created-by.js';
 
 Meteor.methods({
-	async 'invite.user'(firstName, lastName, roleID, email) {
-		if (!Meteor.userId()) {
-			throw new Meteor.Error('not-authorized');
+	async "invite.user"(firstName, lastName, roleID, email) {
+		// Mejor usar this.userId dentro del método
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized", "No autorizado");
 		}
 
-		console.log(roleID);
+		console.log("[invite.user] roleID:", roleID);
 
 		check(firstName, String);
 		check(lastName, String);
 		check(roleID, String);
 		check(email, String);
 
-		//check if email exists in DB
-		const emailExists = await Users.findOneAsync({ 'emails.address': email });
+		// 1. Comprobar si el email ya existe
+		const emailExists = await Users.findOneAsync({ "emails.address": email });
 		if (emailExists) {
-			throw new Meteor.Error(403, { message: 'This email is already used' });
+			throw new Meteor.Error(
+				"email-already-used",
+				"This email is already used"
+			);
 		}
 
-		let roleObj = {};
-		const roles = (await Settings.findOneAsync({ _id: 'roles' })).roles;
+		// 2. Resolver el rol a partir de Settings.roles
+		const rolesDoc = await Settings.findOneAsync({ _id: "roles" });
 
-		roles.forEach(function (role) {
-			if (role.id === roleID) {
-				roleObj = {
-					id: role.id,
-					name: role.name,
-				};
-			}
-		});
+		if (!rolesDoc || !rolesDoc.roles) {
+			throw new Meteor.Error(
+				"roles-not-configured",
+				"Roles settings document not found"
+			);
+		}
 
-		const id = Accounts.createUser({
+		const role = rolesDoc.roles.find((r) => r.id === roleID);
+
+		if (!role) {
+			throw new Meteor.Error("invalid-role", "Role not found");
+		}
+
+		const roleObj = {
+			id: role.id,
+			name: role.name,
+		};
+
+		// 3. Crear usuario (método async en Meteor 3)
+		const userId = await Accounts.createUserAsync({
 			username: `${firstName}${lastName}_${Random.id()}`,
-			email: email,
-			password: Random.id(),
+			email,
+			password: Random.id(), // contraseña random que luego cambiará con el enrollment
 			profile: {
-				firstName: firstName,
-				lastName: lastName,
+				firstName,
+				lastName,
 				role: roleObj,
 				active: true,
 			},
 		});
 
-		console.log(id);
-		Accounts.sendEnrollmentEmail(id, email);
+		console.log("[invite.user] created userId:", userId);
+
+		// 4. Enviar email de enrollment (también async en Meteor 3)
+		try {
+			await Accounts.sendEnrollmentEmail(userId, email);
+			console.log("[invite.user] enrollment email sent to:", email);
+		} catch (error) {
+			console.error("[invite.user] sendEnrollmentEmail error:", error);
+			// Propagar un error legible al cliente
+			throw new Meteor.Error(
+				"enrollment-email-failed",
+				error.reason || error.message || "Error sending enrollment email"
+			);
+		}
+
+		// 5. Puedes devolver algo útil al cliente
+		return { userId };
 	},
 	async 'check.userRole'(email) {
 		console.log('Ran Method [check.userRole]');

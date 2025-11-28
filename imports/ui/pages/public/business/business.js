@@ -1,6 +1,7 @@
 import "./business.html";
 import { Business } from "../../../../api/business/business.js";
 import dayjs from "dayjs";
+import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Session.set("isSubscriptionsReady", false);
 Session.set("stars", 0);
@@ -34,9 +35,14 @@ Template.public_business_view.helpers({
 	business() {
 		return Session.get("business");
 	},
+
 	maxCapacityOptions() {
 		const availableSpace = Session.get("availableSpace");
 		return Array.from({ length: availableSpace || 0 }, (_, i) => i + 1);
+	},
+	descriptionHTML() {
+		const business = Session.get("business");
+		return business?.descriptionHTML?.html ?? "";
 	},
 	isDefaultImage(imageId) {
 		const business = Session.get("business");
